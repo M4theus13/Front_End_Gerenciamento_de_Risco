@@ -1,0 +1,19 @@
+header {
+  background: rgb(41, 159, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  color: #fff;
+  font-family: "Parkinsans", sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+}
+
+form {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+}
