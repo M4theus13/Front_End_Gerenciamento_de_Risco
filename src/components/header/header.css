@@ -1,9 +1,10 @@
 header {
-  background: rgb(41, 159, 255);
+  background: #2E7D32;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 60px;
+  width: 100%;
   color: #fff;
   font-family: "Parkinsans", sans-serif;
   font-weight: 700;

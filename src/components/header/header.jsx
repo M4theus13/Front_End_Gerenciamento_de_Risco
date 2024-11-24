@@ -1,10 +1,10 @@
 import React from 'react'
 import './header.css'
-function header() {
+function header({text}) {
   return (
     <header>
       <nav>
-        <p>Cadastrar</p>
+        <p>{text}</p>
       </nav>
     </header>
   )

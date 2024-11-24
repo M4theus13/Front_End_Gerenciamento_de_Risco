@@ -1,26 +1,40 @@
-import React, { useRef } from 'react'
 import Header from '../../components/header/header'
 import { Link } from 'react-router-dom'
-import Login from '../login/login'
+import api from '../../../service/api'
+import { useRef } from 'react'
+import './cadastrar.css'
 
 function cadastrar() {
 
-  const name = useRef()
-  const email = useRef()
-  const password = useRef()
+  const inputName = useRef()
+  const inputEmail = useRef()
+  const inputPassword = useRef()
+
+  async function createUser() {
+    try {
+
+      await api.post('/usuarios/cadastro', {
+        name: inputName.current.value,
+        email: inputEmail.current.value,
+        password: inputPassword.current.value
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
-    <div>
-      <Header></Header>
-      <div>
+    <div className='box-cadastrar'>
+      <Header text='Cadastrar'></Header>
+      <div className='box-form'>
         <form>
-          <input type="text" placeholder='Nome' ref={name}/>
-          <input type="text" placeholder='Email'ref={email}/>
-          <input type="text" placeholder='Senha'ref={password}/>
-          <button type='button'>Criar</button>
+          <input id='name' type="text" placeholder='Nome' ref={inputName}/>
+          <input id='email' type="text" placeholder='Email' ref={inputEmail}/>
+          <input id='password' type="text" placeholder='Senha' ref={inputPassword}/>
+          <button className='button-cadastrar' type='button' onClick={createUser}>Criar</button>
         </form>
+        <Link id='logar' to='/login'>Já tem conta? clique aqui</Link>
       </div>
-      <Link to={Login}>Já tem conta? clique aqui</Link>
     </div>
   )
 }
