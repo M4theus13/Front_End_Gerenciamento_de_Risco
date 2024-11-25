@@ -18,6 +18,7 @@ function cadastrar() {
         email: inputEmail.current.value,
         password: inputPassword.current.value
       })
+      console.log(api)
     } catch (err) {
       console.log(err)
     }
