@@ -44,3 +44,35 @@ form {
   font-weight: 400;
   font-size: 18px;
 }
+
+/*Tratamentos*/
+
+.okText {
+  color: #000;
+  font-size: 14px;
+  font-weight: 300;
+  cursor: default;
+  display: none;
+}
+
+.errorEmptyText {
+  color: red;
+  font-size: 14px;
+  font-weight: 300;
+  cursor: default;
+}
+
+.errorEmptyInput {
+  border: 1px solid red !important;
+  background: rgb(255, 193, 193);
+  color: #fff !important;
+}
+
+.errorEmptyInput::placeholder {
+  color: #fff;
+}
+
+.errorEmptyInput:focus {
+  outline: none;
+  border: 2px solid red !important;
+}
