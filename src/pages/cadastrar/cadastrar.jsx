@@ -50,11 +50,7 @@ function cadastrar() {
         input.ref.current.classList.add('errorEmptyInput')
         input.textRef.current.classList.remove('okText')
         input.textRef.current.classList.add('errorEmptyText')
-      } else {
-        input.ref.current.classList.remove('errorEmptyInput');
-        input.textRef.current.classList.remove('errorEmptyText');
-        input.textRef.current.classList.add('okText');
-      }
+      } 
     }) 
 
     if (!inputName. current.value.trim() || inputEmail.current.value.trim() || inputPassword.current.value.trim() ) {
