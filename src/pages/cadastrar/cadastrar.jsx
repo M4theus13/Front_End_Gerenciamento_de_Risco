@@ -1,7 +1,7 @@
 import Header from '../../components/header/header'
 import { Link } from 'react-router-dom'
 import api from '../../../service/api'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import './cadastrar.css'
 
 function cadastrar() {
@@ -19,6 +19,28 @@ function cadastrar() {
     {ref: inputEmail, textRef: textEmail},
     {ref: inputPassword, textRef: textPassword}
   ]
+
+
+  useEffect(() => {
+
+    const removeErrorInput = (event) => {
+      event.target.classList.remove('errorEmptyInput');
+    };
+
+    const removeErrorText = (event) => {
+      // Acessa a referência ao texto relacionado ao input focado
+      const textRef = inputs.find(input => input.ref.current === event.target)?.textRef;
+      if (textRef?.current) {
+        textRef.current.classList.remove('errorEmptyText');
+        textRef.current.classList.add('okText');
+      }
+    };
+
+    inputs.forEach((input) => {
+      input.ref.current.addEventListener('focus', removeErrorInput);
+      input.ref.current.addEventListener('focus', removeErrorText)
+    })
+  }, [])
 
   async function createUser() {
     let hasError = false
