@@ -32,7 +32,7 @@ function cadastrar() {
       const textRef = inputs.find(input => input.ref.current === event.target)?.textRef;
       if (textRef?.current) {
         textRef.current.classList.remove('errorEmptyText');
-        textRef.current.classList.add('okText');
+        textRef.current.classList.add('okText-cadastrar');
       }
     };
 
@@ -43,22 +43,21 @@ function cadastrar() {
   }, [])
 
   async function createUser() {
+
     let hasError = false
     inputs.forEach((input) => { 
       const valueInput = input.ref.current.value.trim()
       if (!valueInput) {
         input.ref.current.classList.add('errorEmptyInput')
-        input.textRef.current.classList.remove('okText')
+        input.textRef.current.classList.remove('okText-cadastrar')
         input.textRef.current.classList.add('errorEmptyText')
+        hasError = true
       } 
+
     }) 
 
-    if (!inputName. current.value.trim() || inputEmail.current.value.trim() || inputPassword.current.value.trim() ) {
-      hasError = true
-      return
-    }
-    
     if (!hasError) {
+      console.log('teste')
 
         try {
           if (hasError) {
@@ -69,9 +68,18 @@ function cadastrar() {
           email: inputEmail.current.value,
           password: inputPassword.current.value
         })
-        console.log(api)
       } catch (err) {
         console.log(err)
+        if (err.status === 404) {
+          inputs[0].textRef.current.innerText = 'Usuário não encontrado ou senha inválida.'
+          inputs[0].textRef.current.classList.remove('okText-login')
+          inputs[0].textRef.current.classList.add('errorEmptyText')
+          inputs.forEach((input) => {
+            input.ref.current.classList.add('errorEmptyInput')
+          })
+        } else {
+          // setError('Ocorreu um erro inesperado. Tente novamente.');
+        }
       }
     }
   }
@@ -80,16 +88,16 @@ function cadastrar() {
     <div className='box-cadastrar'>
       <Header text='Cadastrar'></Header>
       <div className='box-form'>
-        <form>
-          <span  className='okText' ref={textName}>Nome Vazio</span>
+        <form className='form-cadastrar'>
+          <span  className='okText-cadastrar' ref={textName}>Nome Vazio</span>
           <input id='name' placeholder='Nome' ref={inputName}/>
-          <span className='okText' ref={textEmail}>Email Vazio</span>
+          <span className='okText-cadastrar' ref={textEmail}>Email Vazio</span>
           <input id='email' type="text" placeholder='Email' ref={inputEmail}/>
-          <span className='okText' ref={textPassword}>Senha Vazia</span>
+          <span className='okText-cadastrar' ref={textPassword}>Senha Vazia</span>
           <input id='password' type="text" placeholder='Senha' ref={inputPassword}/>
           <button className='button-cadastrar' type='button' onClick={createUser}>Criar</button>
         </form>
-        <Link id='logar' to='/login'>Já tem conta? clique aqui</Link>
+          <Link id='logar' to='/login'>Já tem conta? clique aqui</Link>
       </div>
     </div>
   )

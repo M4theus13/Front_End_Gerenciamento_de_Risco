@@ -30,7 +30,7 @@ function login() {
       const textRef = inputs.find(input => input.ref.current === event.target)?.textRef;
       if (textRef?.current) {
         textRef.current.classList.remove('errorEmptyText');
-        textRef.current.classList.add('okText');
+        textRef.current.classList.add('okText-login');
       }
     };
 
@@ -48,15 +48,12 @@ function login() {
 
       if (!valueInput) {
         input.ref.current.classList.add('errorEmptyInput')
-        input.textRef.current.classList.remove('okText')
+        input.textRef.current.classList.remove('okText-login')
         input.textRef.current.classList.add('errorEmptyText')
+        hasError = true
+
       }
     })
-
-    if (!inputEmail.current.value.trim() || !inputPassword.current.value.trim()) {
-      hasError = true
-      return
-    }
 
     if (!hasError) {
 
@@ -70,7 +67,16 @@ function login() {
           navigate('/listar-usuarios')
 
         } catch (err) {
-            console.log(err)
+          if (err.status === 404) {
+            inputs[0].textRef.current.innerText = 'Usuário não encontrado ou senha inválida.'
+            inputs[0].textRef.current.classList.remove('okText-login')
+            inputs[0].textRef.current.classList.add('errorEmptyText')
+            inputs.forEach((input) => {
+              input.ref.current.classList.add('errorEmptyInput')
+            })
+          } else {
+            // setError('Ocorreu um erro inesperado. Tente novamente.');
+          }
         }
       }
   }
@@ -78,15 +84,15 @@ function login() {
   return (
     <div className='box-logar'>
       <HeaderPrivate text='Login'></HeaderPrivate>
-      <div className='box-form'>
-        <form>
-          <span className='okText' ref={textEmail}>Email vazio</span>
-          <input id='email' type="text" placeholder='Email' ref={inputEmail}/>
-          <span className='okText' ref={textPassword}>Senha vazia</span>
-          <input id='password' type="text" placeholder='Senha' ref={inputPassword}/>
+      <div className='box-form-login'>
+        <form className='form-login'>
+          <span className='okText-login' ref={textEmail}>Email Vazio</span>
+          <input id='email' type="text" placeholder='Email' ref={inputEmail} required/>
+          <span className='okText-login' ref={textPassword}>Senha Vazia</span>
+          <input id='password' type="text" placeholder='Senha' ref={inputPassword} required/>
           <button className='button-logar' type='button' onClick={loginUser}>Entrar</button>
+          <Link id='cadastrar' to='/cadastrar'>Não tem conta? clique aqui</Link>
         </form>
-      <Link id='cadastrar' to='/cadastrar'>Não tem conta? clique aqui</Link>
       </div>
     </div>
   )
