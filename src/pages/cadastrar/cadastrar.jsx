@@ -1,10 +1,11 @@
 import Header from '../../components/header/header'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import api from '../../../service/api'
 import { useRef, useEffect } from 'react'
 import './cadastrar.css'
 
 function cadastrar() {
+  const navigate = useNavigate()
 
   const inputName = useRef()
   const inputEmail = useRef()
@@ -43,8 +44,8 @@ function cadastrar() {
   }, [])
 
   async function createUser() {
-
     let hasError = false
+    let hasErrorEmail = false
     inputs.forEach((input) => { 
       const valueInput = input.ref.current.value.trim()
       if (!valueInput) {
@@ -53,12 +54,22 @@ function cadastrar() {
         input.textRef.current.classList.add('errorEmptyText')
         hasError = true
       } 
-
     }) 
 
-    if (!hasError) {
-      console.log('teste')
+    if (!inputs[1].ref.current.value.includes('@') && !inputs[1].ref.current.value.includes('.com') ) {
+      hasErrorEmail = true
+    }
 
+    if (hasErrorEmail) { //CONTINUAR AQUI
+      inputs.forEach((input) => {
+        input.ref.current.classList.add('errorEmptyInput')
+        input.textRef.current.classList.remove('okText-cadastrar')
+        input.textRef.current.classList.add('errorEmptyText')
+      })
+      hasError = true
+    }
+
+    if (!hasError) {
         try {
           if (hasError) {
             
@@ -67,20 +78,21 @@ function cadastrar() {
             name: inputName.current.value,
           email: inputEmail.current.value,
           password: inputPassword.current.value
-        })
-      } catch (err) {
-        console.log(err)
-        if (err.status === 404) {
-          inputs[0].textRef.current.innerText = 'Usuário não encontrado ou senha inválida.'
-          inputs[0].textRef.current.classList.remove('okText-login')
-          inputs[0].textRef.current.classList.add('errorEmptyText')
-          inputs.forEach((input) => {
-            input.ref.current.classList.add('errorEmptyInput')
           })
-        } else {
-          // setError('Ocorreu um erro inesperado. Tente novamente.');
+          navigate('/login')
+        } catch (err) {
+          console.log(err)
+          if (err.status === 404) {
+            inputs[0].textRef.current.innerText = 'Usuário não encontrado ou senha inválida.'
+            inputs[0].textRef.current.classList.remove('okText-login')
+            inputs[0].textRef.current.classList.add('errorEmptyText')
+            inputs.forEach((input) => {
+              input.ref.current.classList.add('errorEmptyInput')
+            })
+          } else {
+            // setError('Ocorreu um erro inesperado. Tente novamente.');
+          }
         }
-      }
     }
   }
 
