@@ -33,6 +33,7 @@ function GetUsuarios() {
             <div className='user-box'>
               <p>Nome: {user.name}</p>
               <p>Email: {user.email}</p>
+              <button>Tornar administrador</button>
             </div>
           </div>
         ))}

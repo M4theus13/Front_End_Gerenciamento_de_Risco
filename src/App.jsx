@@ -4,6 +4,7 @@ import Login from './pages/login/login'
 import Cadastrar from './pages/cadastrar/cadastrar'
 import GetUsuarios from './pages/listar-usuarios/getUsuarios'
 import Home from './pages/home/home'
+import AdminCadastrar from './pages/admin/admin-cadastrar/adminCadastrar'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path='/login' element={<Login></Login>}></Route>
           <Route path='/cadastrar' element={<Cadastrar></Cadastrar>}></Route>
           <Route path='/listar-usuarios' element={<GetUsuarios></GetUsuarios>}></Route>
+          <Route path='/administrador' element={<AdminCadastrar></AdminCadastrar>}></Route>
         </Routes>
       </BrowserRouter>
     </>

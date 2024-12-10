@@ -62,9 +62,10 @@ function cadastrar() {
 
     if (hasErrorEmail) { //CONTINUAR AQUI
       inputs.forEach((input) => {
-        input.ref.current.classList.add('errorEmptyInput')
-        input.textRef.current.classList.remove('okText-cadastrar')
-        input.textRef.current.classList.add('errorEmptyText')
+        inputs[1].ref.current.classList.add('errorEmptyInput')
+        inputs[1].textRef.current.classList.remove('okText-cadastrar')
+        inputs[1].textRef.current.classList.add('errorEmptyText')
+        inputs[1].textRef.current.innerText = 'Email deve conter @ e .com'
       })
       hasError = true
     }
@@ -76,8 +77,8 @@ function cadastrar() {
           }
           await api.post('/usuarios/cadastro', {
             name: inputName.current.value,
-          email: inputEmail.current.value,
-          password: inputPassword.current.value
+            email: inputEmail.current.value,
+            password: inputPassword.current.value
           })
           navigate('/login')
         } catch (err) {
