@@ -56,7 +56,6 @@ function login() {
     })
 
     if (!hasError) {
-
         try {
 
           const { data:token } =  await api.post('/usuarios/login', { //pegando apenas a data { data } do objeto, e chamando de token ":token"

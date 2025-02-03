@@ -8,7 +8,7 @@ function headerPrivate({text, name}) {
     <header>
       <nav>
         <p>{text}</p>
-        <p></p>
+        <p>{name}</p>
 
       </nav>
     </header>
