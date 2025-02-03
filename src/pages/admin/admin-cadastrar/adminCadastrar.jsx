@@ -79,7 +79,7 @@ function adminCadastrar() {
             name: inputName.current.value,
             email: inputEmail.current.value,
             password: inputPassword.current.value,
-            role: 'ADMIN',
+            isAdmin: true
           })
           navigate('/login')
         } catch (err) {
