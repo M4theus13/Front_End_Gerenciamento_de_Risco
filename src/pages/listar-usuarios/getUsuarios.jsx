@@ -5,25 +5,11 @@ import { jwtDecode } from 'jwt-decode'
 import './getUsuarios.css'
 
 function GetUsuarios() {
-  let [user, setUser] = useState([]) //informações dos usuarios para o user
-  let [userInfo, setUserInfo] = useState([])//informações do usuario logado para o user info
+  let [userLogado, setUserLogado] = useState([])//informações do usuario logado para o user info
+  let [usersInfo, setUsersInfo] = useState([]) //informações dos usuarios que estão no site
   const token = localStorage.getItem('token')
 
-  async function loadUsers() {
-
-    const response = api.get('/listar', {
-      headers: {Authorization : `Bearer ${token}`} 
-    })
-    
-    user = (await response).data.user 
-    setUser( user )
-
-
-  }
-
-
   useEffect(() => {
-    loadUsers()
     getUserInfo()
   }, [])
   
@@ -34,7 +20,8 @@ function GetUsuarios() {
         const response = await api.put(`/info-user/${userIdInfo}`, {},{
           headers: {Authorization : `Bearer ${token}`} 
         })
-        setUserInfo(response.data.user[0]) //seta as informações do usuário	logado
+        setUserLogado(response.data.userLogado[0]) //seta as informações do usuário	logado
+        setUsersInfo(response.data.usersInfo) //seta as informações dos usuários
     } catch (err) {
       console.log(err.message)
     }
@@ -45,7 +32,7 @@ function GetUsuarios() {
       await api.put(`/up-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-      loadUsers()
+      getUserInfo()
     } catch (err) {
       console.log(err.message)
       console.log('erro front')
@@ -57,7 +44,7 @@ function GetUsuarios() {
       await api.put(`/del-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-      loadUsers()
+      getUserInfo()
     } catch (err) {
       console.log(err.message)
       console.log('erro front')
@@ -66,22 +53,21 @@ function GetUsuarios() {
 
   return (
     <div >
-      <HeaderPrivate text='Usuarios' name={userInfo ? userInfo.name : ''}></HeaderPrivate>
+      <HeaderPrivate text='Usuarios' name={userLogado ? userLogado.name : ''}></HeaderPrivate>
       <div className='box-listar'>
       <p>Tela do adminstrador</p>
-        {user.map((user, key = user.id) => (
+        {usersInfo.map((usersInfo, key = usersInfo.id) => (
           <div key={key}>
             <div className='user-box'>
-              <p>{user.name}</p>
-              <p>{user.isAdmin ? 'Administrador' : ''}</p>
-              {user.isAdmin ? '' : <button onClick={() => tornarAdmin(user.id)}>Tornar administrador</button>}
-              {user.isAdmin ?  <button onClick={() => removerAdmin(user.id)}>Remover administrador</button> : ''}
+              <p>{usersInfo.name}</p>
+              <p>{usersInfo.isAdmin ? 'Administrador' : ''}</p>
+              {usersInfo.isAdmin ? '' : <button onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button>}
+              {usersInfo.isAdmin ?  <button onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
             </div>
           </div>
         ))}
         <p></p>
       </div>
-
     </div>
   )
 }
