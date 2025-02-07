@@ -51,6 +51,18 @@ function GetUsuarios() {
     }
   }
 
+  const excluirUser = async (userId) => {
+    try{
+      await api.put(`/delete-user/${userId}`,{} ,{
+        headers: {Authorization : `Bearer ${token}`}
+      })
+      getUserInfo()
+      } catch (err) {
+        console.log(err)
+        console.log('erro front')
+      } 
+  }
+
   return (
     <div >
       <HeaderPrivate text='Usuarios' name={userLogado ? userLogado.name : ''}></HeaderPrivate>
@@ -61,8 +73,9 @@ function GetUsuarios() {
             <div className='user-box'>
               <p>{usersInfo.name}</p>
               <p>{usersInfo.isAdmin ? 'Administrador' : ''}</p>
-              {usersInfo.isAdmin ? '' : <button onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button>}
-              {usersInfo.isAdmin ?  <button onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
+              {(userLogado.isAdmin && !usersInfo.isAdmin) ?  <button onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button> : ''}
+              {(userLogado.isAdmin && usersInfo.isAdmin) ?  <button onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
+              {userLogado.isAdmin ? <button onClick={() => excluirUser(usersInfo.id)}>Excluir</button> : ''}
             </div>
           </div>
         ))}
