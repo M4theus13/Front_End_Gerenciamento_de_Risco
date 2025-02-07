@@ -63,7 +63,7 @@ function login() {
             password: inputPassword.current.value
           })
           localStorage.setItem('token', token)
-          navigate('/listar-usuarios')
+          navigate('/menu')
 
         } catch (err) {
           if (err.status === 404) {

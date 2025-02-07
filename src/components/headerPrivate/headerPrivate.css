@@ -1,4 +1,4 @@
-header {
+.headerPrivate {
   background: #2E7D32;
   display: flex;
   align-items: center;
@@ -9,4 +9,30 @@ header {
   font-family: "Parkinsans", sans-serif;
   font-weight: 700;
   font-size: 27px;
+}
+
+.navPrivate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.menuIcon {
+  font-size: 50px;
+}
+
+.menuHeader {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background-color: rgb(70, 184, 108);
+  height: 100%;
+  width: 200px;
 }

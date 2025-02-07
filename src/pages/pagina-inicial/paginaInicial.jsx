@@ -1,15 +1,15 @@
 import React from 'react'
 import Header from '../../components/header/header'
 import { Link } from 'react-router-dom'
-import './home.css'
+import './paginaInicial.css'
 
-function home() {
+function paginaInicial() {
   return (
-    <div className='home-page'>
+    <div className='paginaInicial'>
       <Header text='Pagina Principal'></Header>    
       <Link to='/cadastrar'>Criar conta</Link>
     </div>
   )
 }
 
-export default home
+export default paginaInicial
