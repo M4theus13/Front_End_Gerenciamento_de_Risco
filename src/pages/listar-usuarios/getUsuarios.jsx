@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../../service/api'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
-import { jwtDecode } from 'jwt-decode'
+import { GetUserInfo }from '../../../service/getUsers'
 import './getUsuarios.css'
 
 function GetUsuarios() {
@@ -10,29 +10,16 @@ function GetUsuarios() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    getUserInfo()
+    GetUserInfo(token, setUserLogado, setUsersInfo)
   }, [])
   
-  const getUserInfo = async () => {
-    const decodedToken = jwtDecode(token);
-    const userIdInfo = decodedToken.id; // Obtém o ID do usuário do token decodificado
-    try {
-        const response = await api.put(`/info-user/${userIdInfo}`, {},{
-          headers: {Authorization : `Bearer ${token}`} 
-        })
-        setUserLogado(response.data.userLogado[0]) //seta as informações do usuário	logado
-        setUsersInfo(response.data.usersInfo) //seta as informações dos usuários
-    } catch (err) {
-      console.log(err.message)
-    }
-  }
 
   const tornarAdmin = async (userId) => {
     try{
       await api.put(`/up-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-      getUserInfo()
+      GetUserInfo(token, setUserLogado, setUsersInfo)
     } catch (err) {
       console.log(err.message)
       console.log('erro front')
@@ -44,7 +31,7 @@ function GetUsuarios() {
       await api.put(`/del-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-      getUserInfo()
+      GetUserInfo(token, setUserLogado, setUsersInfo)
     } catch (err) {
       console.log(err.message)
       console.log('erro front')
@@ -56,7 +43,7 @@ function GetUsuarios() {
       await api.put(`/delete-user/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-      getUserInfo()
+      GetUserInfo(token, setUserLogado, setUsersInfo)
       } catch (err) {
         console.log(err)
         console.log('erro front')

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import HeaderPrivate from '../../components/headerPrivate/headerPrivate.jsx'
+import Header from '../../components/header/header.jsx'
 import { Link, useNavigate } from 'react-router-dom'
 import './login.css'
 import api from '../../../service/api'
@@ -82,7 +82,7 @@ function login() {
 
   return (
     <div className='box-logar'>
-      <HeaderPrivate text='Login'></HeaderPrivate>
+      <Header text='Login'></Header>
       <div className='box-form-login'>
         <form className='form-login'>
           <span className='okText-login' ref={textEmail}>Email Vazio</span>

@@ -6,20 +6,28 @@ import { Link } from 'react-router-dom';
 
 function headerPrivate({text, name}) {
 
+  const handdleClick = () => {
+    document.getElementById('buttonMenuOpen').classList.toggle('hidden')
+    document.getElementById('buttonMenuClose').classList.toggle('hidden')
+    document.querySelector('.menuHeader').classList.toggle('open')
+    document.querySelector('.menuHeader').classList.toggle('close')
+  } 
+
   return (
     <header className='headerPrivate'>
       <nav className='navPrivate'>
         <p>{text}</p>
         <div className='userMenu'>
           <p>{name}</p>
-          <IoMenu className='menuIcon' id='menu'/>
-          <IoClose className='menuIcon' id='menuClose'/>
-
+          <button onClick={handdleClick} className='buttonMenu' >
+            <IoMenu className='hidden' id='buttonMenuOpen'/>
+            <IoClose className='' id='buttonMenuClose'/>
+          </button>
         </div>
       </nav>
 
-      <div className='menuHeader'>
-        <Link To='/listar-usuarios'><p>Administrador</p></Link>
+      <div className='menuHeader open'>
+        <Link to='/listar-usuarios'>Administrador</Link>
         <p>Perfil</p>
         <p>Configurações</p>
         <p>Sair</p>
