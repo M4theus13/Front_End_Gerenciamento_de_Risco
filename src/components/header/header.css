@@ -1,8 +1,9 @@
-.header {
+.headerPublic {
   background: #2E7D32;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 60px;
   width: 100%;
   color: #fff;
@@ -11,3 +12,16 @@
   font-size: 27px;
 }
 
+
+.navPublic {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-inline: 20px;
+}
+
+.navPublic :last-child {
+  display: flex;
+  gap: 20px;
+}

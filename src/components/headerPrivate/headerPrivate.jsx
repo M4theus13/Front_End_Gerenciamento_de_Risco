@@ -18,15 +18,17 @@ function headerPrivate({text, name}) {
       <nav className='navPrivate'>
         <p>{text}</p>
         <div className='userMenu'>
-          <p>{name}</p>
+          <div>
+            <p>{name}</p>
+          </div>
           <button onClick={handdleClick} className='buttonMenu' >
-            <IoMenu className='hidden' id='buttonMenuOpen'/>
-            <IoClose className='' id='buttonMenuClose'/>
+            <IoMenu className='' id='buttonMenuOpen'/>
+            <IoClose className='hidden' id='buttonMenuClose'/>
           </button>
         </div>
       </nav>
 
-      <div className='menuHeader open'>
+      <div className='menuHeader close'>
         <Link to='/listar-usuarios'>Administrador</Link>
         <p>Perfil</p>
         <p>Configurações</p>

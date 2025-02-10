@@ -22,9 +22,13 @@
 .userMenu {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .buttonMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 30px;
   color: #fff;
   cursor: pointer;

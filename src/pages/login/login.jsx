@@ -82,7 +82,7 @@ function login() {
 
   return (
     <div className='box-logar'>
-      <Header text='Login'></Header>
+      <Header text='Login' cadastro='ativado'  login='desativado'></Header>
       <div className='box-form-login'>
         <form className='form-login'>
           <span className='okText-login' ref={textEmail}>Email Vazio</span>

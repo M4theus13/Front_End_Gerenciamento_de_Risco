@@ -1,0 +1,19 @@
+.box-options { 
+  display: flex; 
+  padding: 20px;
+  gap: 20px;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 200px;
+    border: 2px solid #fff;
+    background-color: rgb(25, 168, 25);
+    border-radius: 20px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+}

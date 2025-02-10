@@ -7,7 +7,6 @@ function paginaInicial() {
   return (
     <div className='paginaInicial'>
       <Header text='Pagina Principal'></Header>    
-      <Link to='/cadastrar'>Criar conta</Link>
     </div>
   )
 }

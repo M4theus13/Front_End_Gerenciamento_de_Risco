@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate.jsx'
 import { GetUserInfo } from '../../../service/getUsers.js'
+import './menu.css'
 
 function menu() {
   const token = localStorage.getItem('token')
@@ -15,7 +16,10 @@ function menu() {
   return (
     <div>
       <HeaderPrivate text='Menu' name={userLogado.name}></HeaderPrivate>
-      menu  
+      <div className='box-options'>
+        <div className='options'>Conta SPDA</div>
+        <div className='options'>Aterramento</div>
+      </div>
     </div>
   )
 }

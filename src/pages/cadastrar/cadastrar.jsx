@@ -99,7 +99,7 @@ function cadastrar() {
 
   return (
     <div className='box-cadastrar'>
-      <Header text='Cadastrar'></Header>
+      <Header text='Cadastrar' cadastro='desativado' login='ativado'></Header>
       <div className='box-form'>
         <form className='form-cadastrar'>
           <span  className='okText-cadastrar' ref={textName}>Nome Vazio</span>
