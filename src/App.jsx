@@ -17,8 +17,8 @@ function App() {
           <Route path='/login' element={<Login></Login>}></Route>
           <Route path='/cadastrar' element={<Cadastrar></Cadastrar>}></Route>
           <Route path='/menu' element={<Menu></Menu>}></Route>
-          <Route path='/listar-usuarios' element={<GetUsuarios></GetUsuarios>}></Route>
-          <Route path='/administrador' element={<AdminCadastrar></AdminCadastrar>}></Route>
+          <Route path='/admin/listar-usuarios' element={<GetUsuarios></GetUsuarios>}></Route>
+          <Route path='/admin/administrador' element={<AdminCadastrar></AdminCadastrar>}></Route>
         </Routes>
       </BrowserRouter>
     </>

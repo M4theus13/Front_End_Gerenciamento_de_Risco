@@ -16,37 +16,34 @@ function GetUsuarios() {
 
   const tornarAdmin = async (userId) => {
     try{
-      await api.put(`/up-admin/${userId}`,{} ,{
+      await api.put(`/admin/add-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
       GetUserInfo(token, setUserLogado, setUsersInfo)
     } catch (err) {
       console.log(err.message)
-      console.log('erro front')
     }
   }
 
   const removerAdmin = async (userId) => {
     try{
-      await api.put(`/del-admin/${userId}`,{} ,{
+      await api.put(`/admin/rem-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
       GetUserInfo(token, setUserLogado, setUsersInfo)
     } catch (err) {
       console.log(err.message)
-      console.log('erro front')
     }
   }
 
   const excluirUser = async (userId) => {
     try{
-      await api.put(`/delete-user/${userId}`,{} ,{
+      await api.put(`/admin/delete-user/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
       GetUserInfo(token, setUserLogado, setUsersInfo)
       } catch (err) {
         console.log(err)
-        console.log('erro front')
       } 
   }
 
