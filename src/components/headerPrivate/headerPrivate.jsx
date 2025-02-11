@@ -3,6 +3,9 @@ import './headerPrivate.css'
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import {GetUserInfo} from '../../../service/getUsers.js'
 
 function headerPrivate({text, name}) {
 
@@ -12,6 +15,14 @@ function headerPrivate({text, name}) {
     document.querySelector('.menuHeader').classList.toggle('open')
     document.querySelector('.menuHeader').classList.toggle('close')
   } 
+
+  const token = localStorage.getItem('token')
+  let [userLogado, setUserLogado] = useState([])//informações do usuario logado para o user info
+  let [usersInfo, setUsersInfo] = useState([]) 
+  
+  useEffect(() => {
+    GetUserInfo(token , setUserLogado, setUsersInfo)
+  }, [])
 
   return (
     <header className='headerPrivate'>
@@ -29,7 +40,7 @@ function headerPrivate({text, name}) {
       </nav>
 
       <div className='menuHeader close'>
-        <Link to='/listar-usuarios'>Administrador</Link>
+        {userLogado.admin ? <Link to='/listar-usuarios'>Administrador</Link> : ' '}
         <p>Perfil</p>
         <p>Configurações</p>
         <p>Sair</p>
