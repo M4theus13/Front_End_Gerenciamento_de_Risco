@@ -6,7 +6,7 @@ import './paginaInicial.css'
 function paginaInicial() {
   return (
     <div className='paginaInicial'>
-      <Header text='Pagina Principal'></Header>    
+      <Header text='Pagina Principal' cadastro='ativado' login='ativado'></Header>    
     </div>
   )
 }
