@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './headerPrivate.css'
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import Logout from '../logout/logout';
+import { use } from 'react';
 
 function headerPrivate({text, name}) {
   const [userAdminInfo, setUserAdminInfo] = useState(false)
@@ -26,6 +28,14 @@ function headerPrivate({text, name}) {
     document.querySelector('.menuHeader').classList.toggle('close')
   } 
 
+  const logoutElement = useRef()
+  const logout = () => {
+    const element = logoutElement.current
+    console.log(element)
+    element.classList.toggle('hidden')
+    console.log('logout')
+  }
+
   return (
     <header className='headerPrivate'>
       <nav className='navPrivate'>
@@ -45,8 +55,9 @@ function headerPrivate({text, name}) {
         {userAdminInfo ? <Link to='/admin/listar-usuarios'>Administrador</Link> : ''}
         <p>Perfil</p>
         <p>Configurações</p>
-        <p>Sair</p>
+        <button onClick={logout}>Sair</button>
       </div>
+      <Logout ref={logoutElement}></Logout>
     </header>
   )
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState} from 'react'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate.jsx'
 import { GetUserInfo } from '../../../service/getUsers.js'
 import './menu.css'
+import Logout from '../../components/logout/logout.jsx'
 
 function menu() {
   const token = localStorage.getItem('token')
