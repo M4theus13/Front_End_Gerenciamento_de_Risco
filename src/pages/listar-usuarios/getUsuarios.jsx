@@ -70,7 +70,7 @@ function GetUsuarios() {
 
   return (
     <div >
-      <HeaderPrivate text='Usuarios' name={userLogado ? userLogado.name : ''}></HeaderPrivate>
+      <HeaderPrivate text='Usuarios' name={userLogado ? userLogado.name : ''} menu={'hidden'}></HeaderPrivate>
       <div className='box-listar'>
       <p>Tela do adminstrador</p>
         {usersInfo.map((usersInfo, key = usersInfo.id) => (

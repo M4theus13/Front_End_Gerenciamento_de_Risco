@@ -17,55 +17,9 @@
   padding: 0 20px;
 }
 
-.userMenu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.buttonMenu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  color: #fff;
-  cursor: pointer;
-  width: 60px;
-  height: 60px;
-  background-color: transparent;
-  border: none;
-}
-
-#buttonMenuOpen {
-  font-size: 50px;
-}
-
-#buttonMenuClose {
-  font-size: 50px;
-}
-
 .hidden {
   display: none;
 }
 
-.menuHeader {
-  background-color: rgb(70, 184, 108);
-  height: calc(100% - 60px);
-  width: 200px;
-  font-size: 16px;
-  transition: .4s;
-}
-
-.open {
-  position: absolute;
-  right: 0;
-  top: 60px;
-}
-
-.close {
-  position: absolute;
-  right: -200px;
-  top: 60px;
-}
 
 
