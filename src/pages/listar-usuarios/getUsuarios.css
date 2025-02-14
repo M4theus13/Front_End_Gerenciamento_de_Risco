@@ -4,15 +4,97 @@
   justify-content: center;
   flex-direction: column;
   height: 100vh;
-  background: #E6F7E9;
   gap: 10px;
+  color: #fff;
 }
 
 .user-box {
-  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 20px;
-  width: 450px;
-  border-radius: 20px;
-  background-color: #2E7D32;
+  width: 650px;
+  height: 200px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, var(--medium-green), var(--light-green));
   color: #fff;
+  font-size: 20px;
+}
+
+.user-box-infos {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.user-box-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttonAdmin {
+  padding: 12px 30px;
+  background: #27AE60;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonAdmin:hover {
+  background: #219651;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.buttonAdmin:active {
+  transform: scale(0.96);
+}
+
+.buttonAdmin::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+}
+
+.buttonDeleteUser {
+  padding: 12px 28px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(231, 76, 60, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.buttonDeleteUser:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+}
+
+.buttonDeleteUser:active {
+  transform: scale(0.96);
 }

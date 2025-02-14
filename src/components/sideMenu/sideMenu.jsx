@@ -43,7 +43,7 @@ function sideMenu({menuClass}) {
         <IoMenu className={`icon-button ${menu ? 'hidden' : ''}`}/>
         <IoClose className={`icon-button ${!menu ? 'hidden' : ''}`}/>
       </button>
-      <div className={`menuHeader ${!menu ? '' : 'close'}`}>
+      <div className={`menuHeader ${menu ? '' : 'close'}`}>
         <button className='buttonMenuSide'>
           {userAdminInfo ? <Link to='/admin/listar-usuarios'>Administrador</Link> : ''}
         </button>

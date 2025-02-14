@@ -6,10 +6,10 @@ function headerPrivate({text, name, menu}) {
 
   return (
     <header className='headerPrivate'>
-      <nav className='navPrivate'>
+      <nav className='navPrivate textHeaderPrivate'>
         <p>{text}</p>
-        <div className='userMenu'>
-          <div>
+        <div className='userMenuBox'>
+          <div className='userMenu textHeaderPrivate'>
             <p>{name}</p>
           </div>
           <SideMenu menuClass={menu}></SideMenu>

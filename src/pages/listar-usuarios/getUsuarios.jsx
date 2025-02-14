@@ -72,15 +72,18 @@ function GetUsuarios() {
     <div >
       <HeaderPrivate text='Usuarios' name={userLogado ? userLogado.name : ''} menu={'hidden'}></HeaderPrivate>
       <div className='box-listar'>
-      <p>Tela do adminstrador</p>
         {usersInfo.map((usersInfo, key = usersInfo.id) => (
           <div key={key}>
             <div className='user-box'>
-              <p>{usersInfo.name}</p>
-              <p>{usersInfo.isAdmin ? 'Administrador' : ''}</p>
-              {(userAdminInfo && !usersInfo.isAdmin) ?  <button onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button> : ''}
-              {(userAdminInfo && usersInfo.isAdmin) ?  <button onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
-              {userAdminInfo ? <button onClick={() => excluirUser(usersInfo.id)}>Deletar Usuário</button> : ''}
+              <div className='user-box-infos'>
+                <p>{usersInfo.name}</p>
+                <p>{usersInfo.isAdmin ? 'Administrador' : ''}</p>
+              </div>
+              <div className='user-box-buttons'>
+                {(userAdminInfo && !usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button> : ''}
+                {(userAdminInfo && usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
+                {userAdminInfo ? <button className='buttonDeleteUser' onClick={() => excluirUser(usersInfo.id)}>Deletar Usuário</button> : ''}
+              </div>
             </div>
           </div>
         ))}

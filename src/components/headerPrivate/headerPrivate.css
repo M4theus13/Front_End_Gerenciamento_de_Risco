@@ -1,5 +1,5 @@
 .headerPrivate {
-  background: #2E7D32;
+  background: linear-gradient( 45deg, var(--dark-green), var(--medium-green));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,6 +15,17 @@
   align-items: center;
   width: 100%;
   padding: 0 20px;
+}
+
+.userMenuBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textHeaderPrivate {
+  font-size: 25px;
+  font-weight: 700;
 }
 
 .hidden {

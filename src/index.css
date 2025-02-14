@@ -6,12 +6,28 @@
   font-family: "Inter", serif;
 }
 
+:root { /* Paleta de cor */
+  --black: #1E1E1E;
+  --dark-green:#01801e;
+  --medium-green: #0f7e3f; 
+  --light-green: #37aa63;
+  --light-green-100:#8FBC8F;
+  --light-green-200: #A5D6A7; 
+  --light-green-300:#c6ffe6;
+
+  --text-white-100:#FFFFFF;
+  --text-white-200:#e0e0e0;
+
+  --bg-200:#2d2d2d;
+  --bg-300:#454545;
+}
+
 a {
   color: #fff;
 }
 
 body {
-  background-color: #c3f7bc;
+  background-color: var(--black);
   overflow: hidden;
   width: 100vw;
   height: 100vh;

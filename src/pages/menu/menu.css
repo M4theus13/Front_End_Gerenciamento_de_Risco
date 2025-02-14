@@ -10,8 +10,7 @@
     justify-content: center;
     width: 500px;
     height: 200px;
-    border: 2px solid #fff;
-    background-color: rgb(25, 168, 25);
+    background: linear-gradient( 45deg, var(--medium-green), var(--light-green));
     border-radius: 20px;
     color: #fff;
     font-size: 24px;
