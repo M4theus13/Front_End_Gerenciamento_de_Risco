@@ -1,35 +1,82 @@
-.background-logout {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0);
+.logout {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
-
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-.logout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
+.logout-text {
+  background: #23b342;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   text-align: center;
-  width: 300px;
-  height: 200px;
-  border: 2px solid #fff;
-  border-radius: 20px;
-  background-color: rgb(72, 180, 72);
-  color: #fff;
-  padding: 20px;
-
-
+  max-width: 400px;
+  color: white;
+  position: relative;
 }
 
-.hidden {
-  display: none;
+.logout-text div {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.logout-text button {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+
+/* Botão "Sim" */
+.buttonOptionLogout {
+  background: #e74c3c;
+  color: white;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.buttonOptionLogout:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Botão "Não" */
+.logout-text button:last-child {
+  background: white;
+  color: #2ecc71;
+  border: 2px solid #27ae60;
+}
+
+.logout-text button:last-child:hover {
+  background: #27ae60;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Texto da mensagem */
+.logout-text p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado hidden */
+.logout.hidden {
+  opacity: 0;
+  visibility: hidden;
 }

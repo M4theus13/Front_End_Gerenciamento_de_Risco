@@ -3,12 +3,11 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  font-family: "Parkinsans", sans-serif;;
-  
+  font-family: "Inter", serif;
 }
 
 a {
-  color: #000;
+  color: #fff;
 }
 
 body {

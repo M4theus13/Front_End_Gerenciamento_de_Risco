@@ -4,9 +4,10 @@ import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { jwtDecode } from 'jwt-decode';
 import './sideMenu.css'
+import Logout from '../logout/logout';
+
 
 function sideMenu({menuClass}) {
-
   const token = localStorage.getItem('token')
   const decoded = jwtDecode(token) 
   const userAdminInfo = decoded.admin
@@ -17,14 +18,24 @@ function sideMenu({menuClass}) {
     setMenu(!menu)
   } 
 
-/*   const logoutElement = useRef()
+  const logoutElement = useRef()
+  const buttonLogout = useRef()
+
   const logout = () => {
-    const element = logoutElement.current
-    console.log(element)
-    element.classList.toggle('hidden')
+    const logout = logoutElement.current
+
+    const button = buttonLogout.current
+    console.log(logout)
+    logout.classList.toggle('hidden')
     console.log('logout')
   }
-*/
+
+  const logoutBoxRef = useRef()
+
+  const closeLogout = () => {
+    const logoutBox = logoutBoxRef.current
+    logoutBox.classList.toggle('hidden')
+  }
 
   return (
     <div className={`${menuClass}`}>
@@ -32,11 +43,14 @@ function sideMenu({menuClass}) {
         <IoMenu className={`icon-button ${menu ? 'hidden' : ''}`}/>
         <IoClose className={`icon-button ${!menu ? 'hidden' : ''}`}/>
       </button>
-      <div className={`menuHeader ${menu ? 'open' : 'close'}`}>
-        {userAdminInfo ? <Link to='/admin/listar-usuarios'>Administrador</Link> : ''}
-        <p>Perfil</p>
-        <p>Configurações</p>
-        <button>Sair</button>
+      <div className={`menuHeader ${!menu ? '' : 'close'}`}>
+        <button className='buttonMenuSide'>
+          {userAdminInfo ? <Link to='/admin/listar-usuarios'>Administrador</Link> : ''}
+        </button>
+        <button className='buttonMenuSide'>Perfil</button>
+        <button className='buttonMenuSide'>Configurações</button>
+        <button ref={logoutElement} onClick={logout} className='buttonMenuSide'>Sair</button>
+        <Logout ref={logoutElement}  onClick={logout} classList='hidden'></Logout>
       </div>
     </div>
   )
