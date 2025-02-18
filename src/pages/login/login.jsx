@@ -86,9 +86,9 @@ function login() {
       <div className='box-form-login'>
         <form className='form-login'>
           <span className='okText-login' ref={textEmail}>Email Vazio</span>
-          <input id='email' type="text" placeholder='Email' ref={inputEmail} required/>
+          <input id='email-login' type="text" placeholder='Email' ref={inputEmail} required/>
           <span className='okText-login' ref={textPassword}>Senha Vazia</span>
-          <input id='password' type="text" placeholder='Senha' ref={inputPassword} required/>
+          <input id='password-login' type="text" placeholder='Senha' ref={inputPassword} required/>
           <button className='button-logar' type='button' onClick={loginUser}>Entrar</button>
           <Link id='cadastrar' to='/cadastrar'>Não tem conta? clique aqui</Link>
         </form>

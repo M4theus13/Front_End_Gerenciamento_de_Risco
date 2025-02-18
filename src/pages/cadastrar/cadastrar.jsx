@@ -103,14 +103,14 @@ function cadastrar() {
       <div className='box-form'>
         <form className='form-cadastrar'>
           <span  className='okText-cadastrar' ref={textName}>Nome Vazio</span>
-          <input id='name' placeholder='Nome' ref={inputName}/>
+          <input id='name-cadastrar' placeholder='Nome' ref={inputName}/>
           <span className='okText-cadastrar' ref={textEmail}>Email Vazio</span>
-          <input id='email' type="text" placeholder='Email' ref={inputEmail}/>
+          <input id='email-cadastrar' type="text" placeholder='seu@email.com' ref={inputEmail}/>
           <span className='okText-cadastrar' ref={textPassword}>Senha Vazia</span>
-          <input id='password' type="text" placeholder='Senha' ref={inputPassword}/>
+          <input id='password-cadastrar' type="text" placeholder='Senha' ref={inputPassword}/>
           <button className='button-cadastrar' type='button' onClick={createUser}>Criar</button>
-        </form>
           <Link id='logar' to='/login'>Já tem conta? clique aqui</Link>
+        </form>
       </div>
     </div>
   )

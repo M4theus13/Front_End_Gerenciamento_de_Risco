@@ -22,10 +22,6 @@
   --bg-300:#454545;
 }
 
-a {
-  color: #fff;
-}
-
 body {
   background-color: var(--black);
   overflow: hidden;
