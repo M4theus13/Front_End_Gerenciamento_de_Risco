@@ -15,31 +15,38 @@ function cadastrar() {
   const textEmail = useRef()
   const textPassword = useRef()
 
+  //organiza as mensagens referentes aos inputs em objetos
   const inputs = [
     {ref: inputName, textRef: textName},
     {ref: inputEmail, textRef: textEmail},
     {ref: inputPassword, textRef: textPassword}
   ]
 
+  // funcao de remover o erro do input
+  function removeErrorInput(event) {
+    event.target.classList.remove('error-empty-input-cadastrar')
+  };
+
+  // funcao de remover o erro da mensagem do input
+  function removeErrorText(event) {
+    // Acessa a referência ao texto relacionado ao input focado
+    const textRef = inputs.find(input => input.ref.current === event.target)?.textRef
+    if (textRef?.current) {
+      textRef.current.classList.remove('error-empty-text-cadastrar')
+      textRef.current.classList.add('text-input-cadastrar')
+    }
+  }
+
+  // agrupamento das funcoes de remover erro
+  function removeError(event) {
+    removeErrorInput(event)
+    removeErrorText(event)
+  }
 
   useEffect(() => {
-
-    const removeErrorInput = (event) => {
-      event.target.classList.remove('error-empty-input-cadastrar');
-    };
-
-    const removeErrorText = (event) => {
-      // Acessa a referência ao texto relacionado ao input focado
-      const textRef = inputs.find(input => input.ref.current === event.target)?.textRef;
-      if (textRef?.current) {
-        textRef.current.classList.remove('error-empty-text-cadastrar');
-        textRef.current.classList.add('text-input-cadastrar');
-      }
-    };
-
+    // remove os erros quando clicado no input e atualiza seu visual
     inputs.forEach((input) => {
-      input.ref.current.addEventListener('focus', removeErrorInput);
-      input.ref.current.addEventListener('focus', removeErrorText)
+      input.ref.current.addEventListener('focus', removeError);
     })
   }, [])
 
