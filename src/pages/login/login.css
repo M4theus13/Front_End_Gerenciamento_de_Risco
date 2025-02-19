@@ -1,4 +1,4 @@
-.box-logar {
+.box-login {
   height: 100vh;
   width: 100%;
   background: var(--black);
@@ -26,6 +26,7 @@
   align-items: center;
   border-radius: 10px;
   background-color: #c2dfc8;
+  position: relative;
 }
 
  #email-login, #password-login {
@@ -41,14 +42,28 @@
   color: #1f1f1f;
 }
 
-::-webkit-input-placeholder { /* place holder input */
-  color: var(--bg-200);
+#email-login {
+  margin-bottom: 20px;
+}
+
+#text-login-email {
+  position: absolute;
+  top: 15px;
+  left: 50px ;
+}
+
+#text-login-password {
+  position: absolute;
+  top: 85px;
+  left: 50px;
+}
+
+.input-login::placeholder {
+  color: rgb(71, 71, 71);
   font-weight: 300;
 }
 
-
-
-.button-logar {
+.button-login {
   background-color: #2E7D32;
   color: #fff;
   font-size: 20px;
@@ -61,17 +76,39 @@
   margin-top: 20px;
 }
 
+/*Link pagina cadastrar*/
 #cadastrar {
   margin-top: 20px;
   font-weight: 400;
   font-size: 18px;
-  color: #000;
+  color: #1d1d1d;
+  position: relative;
+  transition: 0.4s;
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+#cadastrar:hover {
+  transform: scale(1.01);
+}
+
+#cadastrar::after {
+  content: '';
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: rgb(36, 170, 58);
+  transition: width 0.4s ease-out
+}
+
+#cadastrar:hover::after {
+  width: 100%;
 }
 
 /*Tratamentos*/
-
-.okText-login {
-  color: transparent;
+.text-input-login {
+  display: none;
   font-size: 14px;
   font-weight: 300;
   cursor: default;
@@ -79,26 +116,25 @@
   text-align: start;
 }
 
-.errorEmptyText {
+.error-empty-text-login {
   color: red;
   font-size: 14px;
   font-weight: 300;
   cursor: default;
   width: 500px;
-  text-align: start;
 }
 
-.errorEmptyInput {
-  border: 1px solid red !important;
+.error-empty-input-login {
+  border: none;
+  border-bottom: 1px solid red !important;
   background: rgb(255, 193, 193);
-  color: #fff !important;
 }
 
-.errorEmptyInput::placeholder {
-  color: #fff;
+.error-empty-input-login::placeholder {
+  color: red !important;
 }
 
-.errorEmptyInput:focus {
+.error-empty-input-login:focus {
   outline: none;
   border: 2px solid red !important;
 }

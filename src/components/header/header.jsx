@@ -7,7 +7,7 @@ function header({text, cadastro ,login}) {
     <header className='headerPublic'>
       <nav className='navPublic'>
         <p>{text}</p>
-        <div>
+        <div className='container-buttons-public'>
           {cadastro === 'ativado' ? <Link to='/cadastrar'><button>Criar conta</button></Link> : null}
           {login === 'ativado' ? <Link to='/login'><button>Logar</button></Link> : null}
         </div>
