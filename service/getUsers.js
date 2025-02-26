@@ -14,7 +14,7 @@ export const GetUserInfo = async (token, setUserLogado, setUsersInfo) => {
       setUserLogado(response.data.userLogado[0]) //seta as informações do usuário	logado
       setUsersInfo(response.data.usersInfo) //seta as informações dos usuários
     } catch (err) {
-      console.log(err.message)
+      console.log(err)
     }
 }
 

@@ -1,5 +1,5 @@
 import Header from '../../components/header/header'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../../../service/api'
 import { useRef, useEffect } from 'react'
 import './cadastrar.css'

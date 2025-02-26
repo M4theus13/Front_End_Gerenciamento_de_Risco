@@ -1,0 +1,17 @@
+.button-menu-config {
+  width: 100%;
+  height: 30px;
+  background: #666666b4;
+  border: none;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  outline-color: none;
+  transition: .4s;
+  font-size: 16px;
+}
+
+.button-menu-config:hover {
+  transform: scale(1.01);
+  font-size: 17px;
+  background: #474747d2;
+}

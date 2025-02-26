@@ -47,8 +47,9 @@ function sideMenu({menuClass}) {
         <button className='buttonMenuSide'>
           {userAdminInfo ? <Link to='/admin/listar-usuarios'>Administrador</Link> : ''}
         </button>
+        <button className='buttonMenuSide'><Link to='/menu'>Menu</Link></button>
         <button className='buttonMenuSide'>Perfil</button>
-        <button className='buttonMenuSide'>Configurações</button>
+        <button className='buttonMenuSide'><Link to='/menu/configuracao'>Configurações</Link></button>
         <button ref={logoutElement} onClick={logout} className='buttonMenuSide'>Sair</button>
         <Logout ref={logoutElement}  onClick={logout} classList='hidden'></Logout>
       </div>
