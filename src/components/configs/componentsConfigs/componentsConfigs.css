@@ -1,4 +1,4 @@
-.component1 {
+.componentName {
   width: 50%;
   height: 100%;
   display: flex;
@@ -8,7 +8,7 @@
   gap: 10px;
 }
 
-.component1 input {
+.componentName input {
   height: 30px;
   font-size: 17px;
   border-radius: 5px;
@@ -17,7 +17,7 @@
   padding-inline: 5px;
 }
 
-.component1 button {
+.componentName button {
   height: 30px;
   width: 100%;
   background: var(--light-green);
@@ -28,14 +28,46 @@
   margin-top: 20px;
 }
 
-.component1-current-name {
+.componentName-current-name {
   width: 100%;  
   display: flex;
   flex-direction: column;
 }
 
-.component1-new-name {
+.componentName-new-name {
   width: 100%;  
   display: flex;
   flex-direction: column;
+}
+
+ /* Component2 */
+
+ .componentEmail {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.componentEmail input {
+  height: 30px;
+  font-size: 17px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding-inline: 5px;
+}
+
+.componentEmail button {
+  height: 30px;
+  width: 100%;
+  background: var(--light-green);
+  border: none;
+  outline: none;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  margin-top: 20px;
 }

@@ -4,7 +4,7 @@ import './componentsConfigs.css'
 import api from '../../../../service/api';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-function Component1() {
+function ComponentName() {
   const navigate = useNavigate()
 
   const token = localStorage.getItem('token')
@@ -28,13 +28,13 @@ function Component1() {
     navigate('/menu')
   }
 
-  return <div className='component1'>
-    <div className='component1-current-name'>
+  return <div className='componentName'>
+    <div className='componentName-current-name'>
       <legend>Nome Atual</legend>
       <input type="text" value={userLogado?.name || ''} readOnly='disable'/>
     </div>
 
-    <div className='component1-new-name'>
+    <div className='componentName-new-name'>
       <legend>Nome</legend>
       <input type="text" ref={inputNewName}/>
     </div>
@@ -43,9 +43,70 @@ function Component1() {
   </div>;
 }
 
-function Component2() {
-  return <div>
+function ComponentEmail() {
 
+  const navigate = useNavigate()
+
+  const token = localStorage.getItem('token')
+  let [userLogado, setUserLogado] = useState()
+  let [usersInfo, setUserInfo] = useState() 
+
+
+  useEffect(() => {
+    GetUserInfo(token, setUserLogado, setUserInfo )
+  }, [])
+
+  const inputEmail = useRef()
+  const inputNewEmail = useRef()
+
+  async function alterarEmail() {
+
+    try {
+      const user = await api.post('/usuarios/user' , {
+        email: inputEmail.current.value
+      })
+      if  (user.status === 200) { //se status 200 ja existe usuario com esse email
+        updateEmail()
+      } else { //se nao, status sera 201
+        console.log('email nao cadastrado ou nao encontrado')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+    async function updateEmail() {
+      try {
+        await api.put(`/edit-email-user/${userLogado.id}`, {
+          newEmail: inputNewEmail.current.value
+        }, {
+          headers: {Authorization : `Bearer ${token}`}
+        })
+      } catch(err) {
+        console.log(err)
+      }
+    }
+
+    navigate('/menu')
+  }
+
+  return <div className='componentEmail'>
+    <div>
+      <legend>Email Atual</legend>
+      <input type="text" ref={inputEmail}/>
+    </div>
+
+    <div>
+      <legend>Novo Email</legend>
+      <input type="text" ref={inputNewEmail}/>
+    </div>
+
+    <button onClick={alterarEmail}>Alterar</button>
+  </div>;
+
+}
+
+function ComponentPassword() {
+  return <div className='component3'>
     <div>
       <legend>Senha Atual</legend>
       <input type="text" />
@@ -60,28 +121,12 @@ function Component2() {
       <legend>Confirmar Senha</legend>
       <input type="text" />
     </div>
-
+    <button>Enviar</button>
   </div>;
 }
 
-function Component3() {
-  return <div>
-        <div>
-      <legend>Email Atual</legend>
-      <input type="text" />
-    </div>
-
-    <div>
-      <legend>Novo Email</legend>
-      <input type="text" />
-    </div>
-
-
-  </div>;
-}
-
-function Component4() {
+function ComponentDeleteAccount() {
   return <div>Esta é a tela do Componente 4</div>;
 }
 
-export { Component1, Component2, Component3, Component4 };
+export { ComponentName, ComponentEmail, ComponentPassword, ComponentDeleteAccount };

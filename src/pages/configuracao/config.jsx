@@ -3,7 +3,7 @@ import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
 import { GetUserInfo } from '../../../service/getUsers'
 import api from '../../../service/api'
 import MenuConfigs from '../../components/configs/menuConfigs/menuConfigs'
-import { Component1, Component2, Component3, Component4 } from '../../components/configs/componentsConfigs/componentsConfigs'
+import { ComponentName, ComponentEmail, ComponentPassword, ComponentDeleteAccount } from '../../components/configs/componentsConfigs/componentsConfigs'
 import './config.css'
 
 
@@ -17,21 +17,21 @@ function config() {
     GetUserInfo(token, setUserLogado, setUserInfo)
   }, [])
 
-  const [currentComponent, setCurrentComponent] = useState('Component1');
+  const [currentComponent, setCurrentComponent] = useState('ComponentName');
 
   let RenderComponent;
   switch (currentComponent) {
-    case 'Component1':
-      RenderComponent = Component1;
+    case 'ComponentName':
+      RenderComponent = ComponentName;
       break;
-    case 'Component2':
-      RenderComponent = Component2;
+    case 'ComponentEmail':
+      RenderComponent = ComponentEmail;
       break;
-    case 'Component3':
-      RenderComponent = Component3;
+    case 'ComponentPassword':
+      RenderComponent = ComponentPassword;
       break;
-    case 'Component4':
-      RenderComponent = Component4;
+    case 'ComponentDeleteAccount':
+      RenderComponent = ComponentDeleteAccount;
       break;
     default:
       RenderComponent = Component1;
