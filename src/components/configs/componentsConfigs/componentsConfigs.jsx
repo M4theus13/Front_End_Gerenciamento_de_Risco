@@ -65,10 +65,13 @@ function ComponentEmail() {
       const user = await api.post('/usuarios/user' , {
         email: inputEmail.current.value
       })
-      if  (user.status === 200) { //se status 200 ja existe usuario com esse email
-        updateEmail()
-      } else { //se nao, status sera 201
+      if  (user.status === 201) { //se status 201 nao existe esse email
         console.log('email nao cadastrado ou nao encontrado')
+      }
+      if (user.status === 200) { //se status 200 ja existe usuario com esse email
+        console.log('email encontrado')
+        updateEmail()
+
       }
     } catch (err) {
       console.log(err)
@@ -85,7 +88,6 @@ function ComponentEmail() {
         console.log(err)
       }
     }
-
     navigate('/menu')
   }
 
@@ -106,27 +108,81 @@ function ComponentEmail() {
 }
 
 function ComponentPassword() {
-  return <div className='component3'>
+
+  const token = localStorage.getItem('token')
+  let [userLogado, setUserLogado] = useState()
+  let [usersInfo, setUserInfo] = useState() 
+
+
+  useEffect(() => {
+    GetUserInfo(token, setUserLogado, setUserInfo )
+  }, [])
+
+  const navigate = useNavigate()
+  const inputNewPassword = useRef()
+  async function updatePassword() {
+    try {
+      await api.put(`/edit-password-user/${userLogado.id}`, {
+        newPassword: inputNewPassword.current.value
+      }, {
+        headers: {Authorization : `Bearer ${token}`}
+      })
+    } catch(err) {
+      console.log(err)
+    }
+    navigate('/menu')
+
+  }
+
+
+  return <div className='componentPassword'>
     <div>
       <legend>Senha Atual</legend>
       <input type="text" />
     </div>
 
     <div>
-      <legend>Nova Senha</legend>
-      <input type="text" />
+      <legend >Nova Senha</legend>
+      <input type="text" ref={inputNewPassword}/>
     </div>
 
     <div>
       <legend>Confirmar Senha</legend>
       <input type="text" />
     </div>
-    <button>Enviar</button>
+    <button onClick={updatePassword}>Enviar</button>
   </div>;
 }
 
 function ComponentDeleteAccount() {
-  return <div>Esta é a tela do Componente 4</div>;
+  const token = localStorage.getItem('token')
+  let [userLogado, setUserLogado] = useState()
+  let [usersInfo, setUserInfo] = useState() 
+
+
+  useEffect(() => {
+    GetUserInfo(token, setUserLogado, setUserInfo )
+  }, [])
+
+  const navigate = useNavigate()
+
+  async function deleteAccount() {
+    try {
+      await api.delete(`/edit-delete-user/${userLogado.id}`, {
+        headers: {Authorization : `Bearer ${token}`}
+      })
+    } catch (err) {
+      console.log(err)
+    }
+    navigate('/')
+    localStorage.removeItem('token')
+  
+  }
+
+  return <div className='componentDeleteAccount'>
+    <p>Deseja excluir sua conta?</p>
+    <button onClick={deleteAccount}>Excluir</button>
+  </div>;
 }
 
 export { ComponentName, ComponentEmail, ComponentPassword, ComponentDeleteAccount };

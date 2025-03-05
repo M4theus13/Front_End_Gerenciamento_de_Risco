@@ -40,7 +40,7 @@
   flex-direction: column;
 }
 
- /* Component2 */
+ /* ComponentEmail */
 
  .componentEmail {
   width: 50%;
@@ -70,4 +70,64 @@
   border: 1px solid #fff;
   border-radius: 10px;
   margin-top: 20px;
+}
+
+/* Tratamento de erros */
+
+.error-input-email {
+  color: rgb(255, 0, 0);
+  font-size: 15px;
+  background: rgb(250, 126, 126);
+}
+
+/* ComponentPassword */
+
+.componentPassword {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.componentPassword input {
+  height: 30px;
+  font-size: 17px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding-inline: 5px;
+}
+
+.componentPassword button {
+  height: 30px;
+  width: 100%;
+  background: var(--light-green);
+  border: none;
+  outline: none;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/* Componente Exluir Conta */
+
+.componentDeleteAccount p {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 800;
+}
+
+.componentDeleteAccount button {
+  height: 30px;
+  width: 100%;
+  background: red;
+  border: none;
+  outline: none;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  margin-top: 20px;
+  color: #fff;
 }
