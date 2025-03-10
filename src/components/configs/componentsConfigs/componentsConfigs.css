@@ -17,6 +17,10 @@
   padding-inline: 5px;
 }
 
+.componentName input::placeholder {
+  color: #fff;
+}
+
 .componentName button {
   height: 30px;
   width: 100%;
@@ -40,6 +44,14 @@
   flex-direction: column;
 }
 
+/* Tratamento de erros */
+
+.error {
+  background: rgb(252, 80, 80);
+  border: 2px solid red;
+  color: #fff;
+}
+
  /* ComponentEmail */
 
  .componentEmail {
@@ -59,6 +71,10 @@
   border: none;
   outline: none;
   padding-inline: 5px;
+}
+
+.componentEmail input::placeholder {
+  color: #fff;
 }
 
 .componentEmail button {
