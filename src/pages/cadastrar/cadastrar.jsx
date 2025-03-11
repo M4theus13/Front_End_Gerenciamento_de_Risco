@@ -125,7 +125,7 @@ function cadastrar() {
           <input id='email-cadastrar' className='input-cadastrar' type="text" placeholder='seu@email.com' ref={inputEmail}/>
           <span id='text-cadastrar-password' className='text-input-cadastrar' ref={textPassword}>Senha Vazia</span>
           <input id='password-cadastrar' className='input-cadastrar' type="text" placeholder='Senha' ref={inputPassword}/>
-          <button className='button-cadastrar' type='button' onClick={createUser}>Criar</button>
+          <button className='button-cadastrar' type="button" onClick={createUser}>Criar</button>
           <Link id='logar' to='/login'>Já tem conta? clique aqui</Link>
         </form>
       </div>
