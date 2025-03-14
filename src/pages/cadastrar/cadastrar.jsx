@@ -84,8 +84,7 @@ function cadastrar() {
         const user = await api.post('/usuarios/user' , {
           email: inputEmail.current.value
         })
-        if  (user.data.message === 'usuario não encontrado') {
-          console.log('email nao cadastrado')
+        if  (user.status === 200) {
           sendingData()
         } else {
           hasErrorEmail = true 
@@ -94,7 +93,6 @@ function cadastrar() {
           inputs[1].textRef.current.classList.add('error-empty-text-cadastrar')
           inputs[1].textRef.current.innerText = 'Este email já esta cadastrado'
         }
-        console.log('user', user)
       } catch (err) {
         console.log(err)
       }
