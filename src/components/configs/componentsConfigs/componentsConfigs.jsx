@@ -21,20 +21,38 @@ function ComponentName() {
       event.target.placeholder = ''
     };
 
-    inputNewName.current.addEventListener('focus', removeErrorInput)
+    const removeErrorLegend = (event) => {
+      // Acessa a referência ao texto relacionado ao input focado
+      const textRef = inputs.find(input => input.ref.current === event.target)?.textRef;
+      if (textRef?.current) {
+        textRef.current.innerText = ''
+      }
+    };
+
+    inputs.forEach((input) => {
+      input.ref.current.addEventListener('focus', removeErrorInput);
+      input.ref.current.addEventListener('focus', removeErrorLegend);
+    })
   }, [])
 
+  const legendNewName = useRef()
   const inputNewName = useRef()
+
+  const inputs = [
+    {ref: inputNewName, textRef: legendNewName},
+  ]
 
     async function alterarNome() {
 
+      inputs.forEach((input) => {
       if (inputNewName.current?.value.trim() === '') {
-        inputNewName.current.placeholder = 'Campo obrigatório'
-        inputNewName.current.classList.add('error')
-        hasError = true
-      } else {
-        hasError = false
-      }
+          input.ref.current.classList.add('error')
+          input.textRef.current.innerText = 'Campo obrigatório'
+          hasError = true
+        } else {
+          hasError = false
+        }
+      })
 
       if (!hasError) {
 
@@ -53,13 +71,24 @@ function ComponentName() {
 
   return <div className='componentName'>
     <div className='componentName-current-name'>
-      <legend>Nome Atual</legend>
-      <input type="text" value={userLogado?.name || ''} readOnly='disable'/>
+      <div className='componentName-current-name-legend-box'>
+        <legend>Nome Atual:</legend>
+      </div>
+
+      <div className='componentName-current-name-input-box'>
+        <input type="text" value={userLogado?.name || ''} readOnly/>
+      </div>
     </div>
 
     <div className='componentName-new-name'>
-      <legend>Nome</legend>
-      <input type="text" ref={inputNewName}/>
+      <div className='componentName-new-name-legend-box'>
+        <legend>Nome:</legend>
+      </div>
+
+      <div className='componentName-new-name-input-box'>
+        <p className='componentName-new-name-text' ref={legendNewName}></p>
+        <input type="text" ref={inputNewName}/>
+      </div>
     </div>
 
     <button onClick={alterarNome}>Enviar</button>
@@ -160,14 +189,24 @@ function ComponentEmail() {
   }
 
   return <div className='componentEmail'>
-    <div>
-      <legend>Email Atual</legend>
-      <input type="text" ref={inputEmail}/>
+    <div className='componentEmail-current-email'>
+      <div className='componentEmail-legend-box'>
+        <legend>Email Atual</legend>
+      </div>
+      <div className='componentEmail-input-box'>
+        <p className='componentEmail-text'>Erro</p>
+        <input type="text" ref={inputEmail}/>
+      </div>
     </div>
 
-    <div>
-      <legend>Novo Email</legend>
-      <input type="text" ref={inputNewEmail}/>
+    <div className='componentEmail-new-email'>
+      <div className='componentEmail-legend-box'>
+        <legend>Novo Email</legend>
+      </div>
+      <div className='componentEmail-input-box'>
+        <p className='componentEmail-text'>Erro</p>
+        <input type="text" ref={inputNewEmail}/>
+      </div>
     </div>
 
     <button onClick={alterarEmail}>Alterar</button>
@@ -279,19 +318,34 @@ function ComponentPassword() {
   }
 
   return <div className='componentPassword'>
-    <div>
-      <legend>Senha Atual</legend>
-      <input type="text" ref={inputPassword}/>
+    <div className='componentPassword-current-password'>
+      <div className='componentPassword-current-password-legend-box'>
+        <legend>Senha Atual: </legend>
+      </div>
+      <div className='componentPassword-current-password-input-box'>
+        <p className='componentPassword-errorText'>Error</p>
+        <input type="text" ref={inputPassword}/>
+      </div>
     </div>
 
-    <div>
-      <legend >Nova Senha</legend>
-      <input type="text" ref={inputNewPassword}/>
+    <div className='componentPassword-new-password'>
+      <div className='componentPassword-new-password-legend-box'>
+        <legend >Nova Senha: </legend>
+      </div>
+      <div className='componentPassword-new-password-input-box'>
+        <p className='componentPassword-errorText'>Error</p>
+       <input type="text" ref={inputNewPassword}/>
+      </div>
     </div>
 
-    <div>
-      <legend>Confirmar Nova Senha</legend>
-      <input type="text" ref={inputConfirmNewPassword}/>
+    <div className='componentPassword-confirm-new-password'>
+      <div className='componentPassword-confirm-new-password-legend-box'>
+        <legend>Confirmar Nova Senha: </legend>
+      </div>
+      <div className='componentPassword-confirm-new-password-input-box'>
+        <p className='componentPassword-errorText'>Error</p>
+        <input type="text" ref={inputConfirmNewPassword}/>
+      </div>
     </div>
     <button onClick={updatePassword}>Enviar</button>
   </div>;

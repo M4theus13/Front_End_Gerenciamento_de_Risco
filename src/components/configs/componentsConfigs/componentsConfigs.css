@@ -1,11 +1,10 @@
 .componentName {
-  width: 50%;
+  width: 70%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 10px;
 }
 
 .componentName input {
@@ -17,45 +16,68 @@
   padding-inline: 5px;
 }
 
+.componentName-current-name-legend-box, .componentName-new-name-legend-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.componentName-current-name-input-box, .componentName-new-name-input-box {
+  width: 100%;
+  position: relative;
+  display: flex;
+  height: 70px;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .componentName input::placeholder {
   color: #fff;
 }
 
 .componentName button {
   height: 30px;
-  width: 100%;
+  width: 50%;
   background: var(--light-green);
   border: none;
   outline: none;
   border: 1px solid #fff;
-  border-radius: 10px;
-  margin-top: 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
 }
 
 .componentName-current-name {
   width: 100%;  
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .componentName-new-name {
   width: 100%;  
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+  gap: 10px;
 }
 
-/* Tratamento de erros */
 
-.error {
-  background: rgb(252, 80, 80);
-  border: 2px solid red;
-  color: #fff;
+.componentName-new-name-text {
+  font-size: 13px;
+  color: red;
+  position: absolute;
+  top: 0;
+  font-weight: 500;
 }
 
  /* ComponentEmail */
 
  .componentEmail {
-  width: 50%;
+  width: 70%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -73,33 +95,58 @@
   padding-inline: 5px;
 }
 
+.componentEmail-current-email, .componentEmail-new-email {
+  width: 100%;  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .componentEmail input::placeholder {
-  color: #fff;
+  color: #000;
 }
 
 .componentEmail button {
   height: 30px;
-  width: 100%;
+  width: 50%;
   background: var(--light-green);
   border: none;
   outline: none;
   border: 1px solid #fff;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-top: 20px;
+  font-weight: 500;
+  color: #fff;
 }
 
-/* Tratamento de erros */
+.componentEmail-legend-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+}
 
-.error-input-email {
-  color: rgb(255, 0, 0);
-  font-size: 15px;
-  background: rgb(250, 126, 126);
+.componentEmail-input-box {
+  width: 100%;
+  position: relative;
+  display: flex;
+  height: 70px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.componentEmail-text {
+  font-size: 13px;
+  color: red;
+  position: absolute;
+  top: 0;
+  font-weight: 500;
 }
 
 /* ComponentPassword */
 
 .componentPassword {
-  width: 50%;
+  width: 75%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -115,6 +162,43 @@
   border: none;
   outline: none;
   padding-inline: 5px;
+}
+
+.componentPassword input::placeholder {
+  color: #000;
+}
+
+.componentPassword-current-password, .componentPassword-new-password, .componentPassword-confirm-new-password {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.componentPassword-current-password-legend-box, .componentPassword-new-password-legend-box, .componentPassword-confirm-new-password-legend-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  text-align: center;
+}
+
+.componentPassword-current-password-input-box, .componentPassword-new-password-input-box, .componentPassword-confirm-new-password-input-box {
+  width: 100%;
+  display: flex;
+  height: 70px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.componentPassword-errorText {
+  width: 100%;
+  font-size: 13px;
+  color: red;
+  position: absolute;
+  top: 0;
+  font-weight: 500;
 }
 
 .componentPassword button {
@@ -145,5 +229,16 @@
   border: 1px solid #fff;
   border-radius: 10px;
   margin-top: 20px;
+  color: #fff;
+}
+
+/* Tratamento de erros */
+
+.error {
+  outline: 1px solid red !important;
+  background: #fff6bf;
+}
+
+.error ::placeholder {
   color: #fff;
 }

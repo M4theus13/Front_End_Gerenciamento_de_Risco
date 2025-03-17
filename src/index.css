@@ -24,7 +24,14 @@
 }
 
 body {
-  background-color: var(--black);
+  background-color:hsla(310,0%,0%,1);
+  background-image:
+  radial-gradient(at 58% 92%, hsla(0,0%,13%,0.71) 0px, transparent 50%),
+  radial-gradient(at 44% 20%, hsla(0,0%,13%,0.35) 0px, transparent 50%),
+  radial-gradient(at 5% 12%, hsla(0,0%,13%,1) 0px, transparent 50%),
+  radial-gradient(at 97% 88%, hsla(0,0%,13%,1) 0px, transparent 50%),
+  radial-gradient(at 81% 15%, hsla(0,0%,13%,0.77) 0px, transparent 50%),
+  radial-gradient(at 16% 71%, hsla(0,0%,13%,0.79) 0px, transparent 50%);
   overflow: hidden;
   width: 100vw;
   height: 100vh;
