@@ -6,7 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 function ComponentName() {
   const navigate = useNavigate()
-  let hasError = false
+  let hasErrorName = false
 
   const token = localStorage.getItem('token')
   let [userLogado, setUserLogado] = useState()
@@ -43,18 +43,18 @@ function ComponentName() {
   ]
 
     async function alterarNome() {
-
+      hasErrorName = false
       inputs.forEach((input) => {
       if (inputNewName.current?.value.trim() === '') {
           input.ref.current.classList.add('error')
           input.textRef.current.innerText = 'Campo obrigatório'
-          hasError = true
+          hasErrorName = true
         } else {
-          hasError = false
+          hasErrorName = false
         }
       })
 
-      if (!hasError) {
+      if (!hasErrorName) {
 
         await api.put(`/edit-name-user/${userLogado.id}`, {
           name: inputNewName.current.value
@@ -111,24 +111,43 @@ function ComponentEmail() {
       event.target.placeholder = ''
     };
 
-    inputEmail.current.addEventListener('focus', removeErrorInput)
-    inputNewEmail.current.addEventListener('focus', removeErrorInput)
+    const removeErrorLegend = (event) => {
+      // Acessa a referência ao texto relacionado ao input focado
+      const textRef = inputs.find(input => input.ref.current === event.target)?.textRef;
+      if (textRef?.current) {
+        textRef.current.innerText = ''
+      }
+    };
+
+    inputs.forEach((input) => {
+      input.ref.current.addEventListener('focus', removeErrorInput);
+      input.ref.current.addEventListener('focus', removeErrorLegend);
+    })
   }, [])
 
   const inputEmail = useRef()
   const inputNewEmail = useRef()
 
+  const legendEmail = useRef()
+  const legendNewEmail = useRef()
+
+  const inputs = [
+    {ref: inputEmail, textRef: legendEmail},
+    {ref: inputNewEmail, textRef: legendNewEmail},
+  ]
+
   let hasErrorEmail = false
   async function alterarEmail() {
-    //validação se o campo do email novo esta vazio
-    if (inputNewEmail.current?.value.trim() === '') {
-      inputNewEmail.current.placeholder = 'Campo obrigatório'
-      inputNewEmail.current.classList.add('error')
-    } 
+    hasErrorEmail = false
     //validação se o campo do email atual esta vazio
     if (inputEmail.current?.value.trim() === '') {
-      inputEmail.current.placeholder = 'Campo obrigatório'
       inputEmail.current.classList.add('error')
+      legendEmail.current.innerText = 'Campo obrigatório'
+    } 
+    //validação se o campo do email novo esta vazio
+    if (inputNewEmail.current?.value.trim() === '') {
+      inputNewEmail.current.classList.add('error')
+      legendNewEmail.current.innerText = 'Campo obrigatório'
     } 
     //validação se o campo do email atual e novo email estao vazios para nao fazer a requisição
     if (inputEmail.current?.value.trim() === '' || inputNewEmail.current?.value.trim() === '') {
@@ -138,34 +157,51 @@ function ComponentEmail() {
 
     //validação se o email novo tem @ e .com
     if  (!inputNewEmail.current?.value.includes('@') || !inputNewEmail.current?.value.includes('.com')) {
-      inputEmail.current.value = ''
-      inputNewEmail.current.placeholder = 'Email deve conter @ e .com'
       inputNewEmail.current.classList.add('error')
+      legendNewEmail.current.innerText = 'Email deve conter @ e .com'
       hasErrorEmail = true
-    } else {
-      hasErrorEmail = false 
     }
 
-    //validação se o email atual é correspondente ao email do usuario
-    if (!hasErrorEmail) {
-      //guarda valor do email do usuario que esta no banco de dados
+    if (!hasErrorEmail){
+      //validação se o email atual é correspondente ao email do usuario
       try  {
         const verificaEmail = await api.post(`/verify-email/${userLogado.id}`, {
           email: inputEmail.current.value
         }, {
           headers: {Authorization : `Bearer ${token}`}
         })
-
-        //verifica se o email atual e o email do banco de dados são iguais
-        if (verificaEmail.data.emailUser[0].email !== inputEmail.current.value) {
-          inputEmail.current.value = ''
-          inputEmail.current.placeholder = 'Email Incorreto'
+        if (verificaEmail.status === 201) {
           inputEmail.current.classList.add('error')
+          legendEmail.current.innerText = 'Email incorreto'
           hasErrorEmail = true
-          return
+        } 
+
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    if (!hasErrorEmail) {
+      //verifica se o novo email ja esta cadastrado
+      try {
+        const verifyNewEmail = await api.post(`/verify-new-email/${userLogado.id}`, {
+          emailNew: inputNewEmail.current.value
+        }, {
+          headers: {Authorization : `Bearer ${token}`}
+        })
+        if (verifyNewEmail.status === 201) {
+          inputNewEmail.current.classList.add('error')
+          legendNewEmail.current.innerText = 'Email já em uso'
+          hasErrorEmail = true
         }
       } catch (err) {
         console.log(err)
+      }
+
+      if (inputEmail.current.value === inputNewEmail.current.value) {
+        inputEmail.current.classList.add('error')
+        inputNewEmail.current.classList.add('error')
+        legendNewEmail.current.innerText = 'Email atual e novo email são iguais'
+        hasErrorEmail = true
       }
     }
 
@@ -194,7 +230,7 @@ function ComponentEmail() {
         <legend>Email Atual</legend>
       </div>
       <div className='componentEmail-input-box'>
-        <p className='componentEmail-text'>Erro</p>
+        <p className='componentEmail-text' ref={legendEmail}></p>
         <input type="text" ref={inputEmail}/>
       </div>
     </div>
@@ -204,7 +240,7 @@ function ComponentEmail() {
         <legend>Novo Email</legend>
       </div>
       <div className='componentEmail-input-box'>
-        <p className='componentEmail-text'>Erro</p>
+        <p className='componentEmail-text' ref={legendNewEmail}></p>
         <input type="text" ref={inputNewEmail}/>
       </div>
     </div>
@@ -224,14 +260,30 @@ function ComponentPassword() {
   useEffect(() => {
     GetUserInfo(token, setUserLogado, setUserInfo )
 
+
+
     const removeErrorInput = (event) => {
-      event.target.classList.remove('error')
+      event.target.classList.remove('error');
       event.target.placeholder = ''
     };
+
+    const removeErrorLegend = (event) => {
+      // Acessa a referência ao texto relacionado ao input focado
+      const textRef = inputs.find(input => input.ref.current === event.target)?.textRef;
+      if (textRef?.current) {
+        textRef.current.innerText = ''
+      }
 
     inputPassword.current.addEventListener('focus', removeErrorInput)
     inputNewPassword.current.addEventListener('focus', removeErrorInput)
     inputConfirmNewPassword.current.addEventListener('focus', removeErrorInput)
+  
+    };
+
+    inputs.forEach((input) => {
+      input.ref.current.addEventListener('focus', removeErrorInput);
+      input.ref.current.addEventListener('focus', removeErrorLegend);
+    })
 
   }, [])
 
@@ -241,26 +293,35 @@ function ComponentPassword() {
   const inputPassword = useRef()
   const inputNewPassword = useRef()
   const inputConfirmNewPassword = useRef()
+  
+  const legendPassword = useRef()
+  const legendNewPassword = useRef()
+  const legendConfirmNewPassword = useRef()
+
+  const inputs = [
+    {ref: inputPassword, textRef: legendPassword},
+    {ref: inputNewPassword, textRef: legendNewPassword},
+    {ref: inputConfirmNewPassword, textRef: legendConfirmNewPassword},
+  ]
 
   async function updatePassword() {
-
+    hasErrorPassword = false
     //validacao se campo de senha esta vazio
     if (inputPassword.current?.value.trim() === '') {
-      inputPassword.current.value = ''
-      inputPassword.current.placeholder = 'Campo obrigatório'
       inputPassword.current.classList.add('error')
+      legendPassword.current.innerText = 'Campo obrigatório'
     }
     //validacao se campo de nova senha esta vazio
     if (inputNewPassword.current?.value.trim() === '') {
-      inputNewPassword.current.value = ''
-      inputNewPassword.current.placeholder = 'Campo obrigatório'
       inputNewPassword.current.classList.add('error')
+      legendNewPassword.current.innerText = 'Campo obrigatório'
+
     }
     //validacao se campo de confirmar senha esta vazio
     if (inputConfirmNewPassword.current?.value.trim() === '') {
-      inputConfirmNewPassword.current.value = ''
-      inputConfirmNewPassword.current.placeholder = 'Campo obrigatório'
       inputConfirmNewPassword.current.classList.add('error')
+      legendConfirmNewPassword.current.innerText = 'Campo obrigatório'
+
     }
 
     //verifica se algum campo esta vazio e retorna erro
@@ -271,12 +332,12 @@ function ComponentPassword() {
 
     //verifica se a nova senha é igual a senha de confirmação
     if (inputNewPassword.current?.value !== inputConfirmNewPassword.current?.value) {
-      inputNewPassword.current.value = ''
-      inputConfirmNewPassword.current.value = ''
-      inputNewPassword.current.placeholder = 'Senha não corresponde'
-      inputConfirmNewPassword.current.placeholder = 'Senha não corresponde'
       inputNewPassword.current.classList.add('error')
       inputConfirmNewPassword.current.classList.add('error')
+
+      legendNewPassword.current.innerText = 'Senhas não correspondem'
+      legendConfirmNewPassword.current.innerText = 'Senhas não correspondem'
+
       hasErrorPassword = true
     } 
 
@@ -291,9 +352,8 @@ function ComponentPassword() {
       if (userPassword.status === 200) {
         console.log('senha correta')
       } else {
-        inputPassword.current.value = ''
-        inputPassword.current.placeholder = 'Senha Incorreta'
         inputPassword.current.classList.add('error')
+        legendPassword.current.innerText = 'Senha Incorreta'
         hasErrorPassword = true
       }
   
@@ -314,7 +374,6 @@ function ComponentPassword() {
       }
       navigate('/menu')
     }
-
   }
 
   return <div className='componentPassword'>
@@ -323,7 +382,7 @@ function ComponentPassword() {
         <legend>Senha Atual: </legend>
       </div>
       <div className='componentPassword-current-password-input-box'>
-        <p className='componentPassword-errorText'>Error</p>
+        <p className='componentPassword-errorText' ref={legendPassword}></p>
         <input type="text" ref={inputPassword}/>
       </div>
     </div>
@@ -333,7 +392,7 @@ function ComponentPassword() {
         <legend >Nova Senha: </legend>
       </div>
       <div className='componentPassword-new-password-input-box'>
-        <p className='componentPassword-errorText'>Error</p>
+        <p className='componentPassword-errorText' ref={legendNewPassword}></p>
        <input type="text" ref={inputNewPassword}/>
       </div>
     </div>
@@ -343,7 +402,7 @@ function ComponentPassword() {
         <legend>Confirmar Nova Senha: </legend>
       </div>
       <div className='componentPassword-confirm-new-password-input-box'>
-        <p className='componentPassword-errorText'>Error</p>
+        <p className='componentPassword-errorText' ref={legendConfirmNewPassword}></p>
         <input type="text" ref={inputConfirmNewPassword}/>
       </div>
     </div>

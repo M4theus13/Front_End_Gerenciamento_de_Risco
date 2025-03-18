@@ -23,6 +23,7 @@ function login() {
   useEffect(() => {
     const removeErrorInput = (event) => {
       event.target.classList.remove('error-empty-input-login');
+      hasError = false;
     };
 
     const removeErrorText = (event) => {
