@@ -183,7 +183,7 @@ function ComponentEmail() {
     if (!hasErrorEmail) {
       //verifica se o novo email ja esta cadastrado
       try {
-        const verifyNewEmail = await api.post(`/verify-new-email/${userLogado.id}`, {
+        const verifyNewEmail = await api.post(`/verify-new-email`, {
           emailNew: inputNewEmail.current.value
         }, {
           headers: {Authorization : `Bearer ${token}`}

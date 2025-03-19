@@ -23,7 +23,6 @@ function login() {
   useEffect(() => {
     const removeErrorInput = (event) => {
       event.target.classList.remove('error-empty-input-login');
-      hasError = false;
     };
 
     const removeErrorText = (event) => {
@@ -62,20 +61,21 @@ function login() {
             email: inputEmail.current.value,
             password: inputPassword.current.value
           })
-          const token = response.data
-          localStorage.setItem('token', token)
-          navigate('/menu')
-        } catch (err) {
-          if (err.status === 404) {
+          if (response.status === 201) {
             inputs[0].textRef.current.innerText = 'Usuário não encontrado ou senha inválida.'
             inputs[0].textRef.current.classList.remove('text-input-login')
             inputs[0].textRef.current.classList.add('error-empty-text-login')
             inputs.forEach((input) => {
               input.ref.current.classList.add('error-empty-input-login')
             })
-          } else {
-            setError('Ocorreu um erro inesperado. Tente novamente.');
+            return
           }
+          const token = response.data
+          localStorage.setItem('token', token)
+          navigate('/menu')
+        } catch (err) {
+          console.log('erro no login')
+          console.log(err)
         }
       }
   }

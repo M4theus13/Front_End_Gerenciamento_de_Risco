@@ -7,7 +7,7 @@ export const GetUserInfo = async (token, setUserLogado, setUsersInfo) => {
   const userIdInfo = decodedToken.id; // Obtém o ID do usuário do token decodificado
   try {
 
-      const response = await api.put(`/info-user/${userIdInfo}`, {},{
+      const response = await api.put(`/users/${userIdInfo}`, {},{
         headers: {Authorization : `Bearer ${token}`} 
       })
 

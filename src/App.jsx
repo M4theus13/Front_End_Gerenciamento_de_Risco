@@ -6,6 +6,7 @@ import PaginaInicial from './pages/pagina-inicial/paginaInicial'
 import AdminCadastrar from './pages/admin/admin-cadastrar/adminCadastrar'
 import Menu from './pages/menu/menu'
 import Config from './pages/configuracao/config'
+import Erro from './pages/erro/erro'
 import './App.css'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/menu/configuracao' element={<Config></Config>}></Route>
           <Route path='/admin/listar-usuarios' element={<GetUsuarios></GetUsuarios>}></Route>
           <Route path='/admin/administrador' element={<AdminCadastrar></AdminCadastrar>}></Route>
+          <Route path='/*' element={<Erro></Erro>}></Route>
         </Routes>
       </BrowserRouter>
     </>
