@@ -5,7 +5,7 @@ import api from '../../../service/api'
 import MenuConfigs from '../../components/configs/menuConfigs/menuConfigs'
 import { ComponentName, ComponentEmail, ComponentPassword, ComponentDeleteAccount } from '../../components/configs/componentsConfigs/componentsConfigs'
 import './config.css'
-
+import { useNavigate } from 'react-router-dom'
 
 function config() {
 
@@ -13,7 +13,13 @@ function config() {
   let [userLogado, setUserLogado] = useState([])
   let [usersInfo, setUserInfo] = useState([]) 
 
+  const navigate = useNavigate()
   useEffect(() => {
+    if (!token) {
+      console.log('sem token')
+      navigate('/login')
+      return
+    } 
     GetUserInfo(token, setUserLogado, setUserInfo)
   }, [])
 

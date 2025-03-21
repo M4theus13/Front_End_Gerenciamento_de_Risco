@@ -6,9 +6,14 @@ import { jwtDecode } from 'jwt-decode';
 import './sideMenu.css'
 import Logout from '../logout/logout';
 
-
 function sideMenu({menuClass}) {
   const token = localStorage.getItem('token')
+
+  if (!token) {
+    console.log('sem token side menu')
+    return
+  }
+
   const decoded = jwtDecode(token) 
   const userAdminInfo = decoded.admin
 
@@ -45,7 +50,7 @@ function sideMenu({menuClass}) {
       </button>
       <div className={`menuHeader ${menu ? '' : 'close'}`}>
         <button className='buttonMenuSide'>
-          {userAdminInfo ? <Link to='/admin/listar-usuarios'>Administrador</Link> : ''}
+          {userAdminInfo ? <Link to='/admin/usuarios'>Administrador</Link> : ''}
         </button>
         <button className='buttonMenuSide'><Link to={'/'}>Página Inicial</Link></button>
         <button className='buttonMenuSide'><Link to='/menu'>Menu</Link></button>

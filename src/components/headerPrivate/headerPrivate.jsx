@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './headerPrivate.css'
 import SideMenu from '../sideMenu/sideMenu.jsx';
-
+import { Navigate } from 'react-router-dom';
 function headerPrivate({text, name, menu}) {
+
+  const token = localStorage.getItem('token')
+
+  // Redireciona imediatamente se não houver token
+  if (!token) {
+    console.log('sem token')
+    return <Navigate to="/login" replace />
+  }
 
   return (
     <header className='headerPrivate'>

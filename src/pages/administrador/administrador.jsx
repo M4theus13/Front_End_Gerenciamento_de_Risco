@@ -3,31 +3,36 @@ import api from '../../../service/api'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
 import { GetUserInfo }from '../../../service/getUsers'
 import { jwtDecode } from 'jwt-decode'
-import './getUsuarios.css'
-import { useNavigate } from 'react-router-dom'
+import './administrador.css'
+import { replace, useNavigate } from 'react-router-dom'
 
-function GetUsuarios() {
+function administrador() {
   const navigate = useNavigate()
 
   let [userLogado, setUserLogado] = useState([])//informações do usuario logado para o user info
   let [usersInfo, setUsersInfo] = useState([]) //informações dos usuarios que estão no site
   
   let [userIdInfo, setUserIdInfo] = useState([]) //informações do usuario logado para o user info 
-  let [userAdminInfo, setUserAdminInfo] = useState(false) //informações do usuario logado para o user info  
+  let [userAdminInfo, setUserAdminInfo] = useState() //informações do usuario logado para o user info  
 
   const token = localStorage.getItem('token')
 
   useEffect(() => {
     if (!token) {
-      console.log('Usuário não encontrado')
-      navigate('/')
+      console.log('sem token')
+      navigate('/login', replace)
       return
     } 
     const decoded = jwtDecode(token);
-
+    
     setUserIdInfo(decoded.id) // Obtém o ID do usuário do token decodificado
     setUserAdminInfo(decoded.admin) // Obtém se é ADMIN do usuário do token decodificado
     
+   if (!decoded.admin) {
+     navigate('/menu', replace)
+     return
+   }
+
     GetUserInfo(token, setUserLogado, setUsersInfo)
   }, [])
   
@@ -93,4 +98,4 @@ function GetUsuarios() {
   )
 }
 
-export default GetUsuarios
+export default administrador

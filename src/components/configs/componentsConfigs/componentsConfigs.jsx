@@ -14,6 +14,11 @@ function ComponentName() {
 
 
   useEffect(() => {
+    if (!token) {
+      console.log('sem token')
+      navigate('/login')
+      return
+    } 
     GetUserInfo(token, setUserLogado, setUserInfo )
 
     const removeErrorInput = (event) => {
