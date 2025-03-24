@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate.jsx'
-import { GetUserInfo } from '../../../service/getUsers.js'
 import Header from '../../components/header/header.jsx'
 import './erro.css'
 import iconErro from '../../assets/erro-icon.png'

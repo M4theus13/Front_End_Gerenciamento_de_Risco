@@ -1,0 +1,36 @@
+.container-perfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
+  color: #fff;
+  background: var(--light-green-100);
+}
+
+.perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 500px;
+  height: 500px;
+  background: green;
+  border: 2px solid #fff;
+}
+
+.userIconPerfil {
+  width: 120px;
+  border-radius: 100%;
+}
+
+.perfil-title {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.perfil-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}

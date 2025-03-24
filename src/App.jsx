@@ -5,9 +5,12 @@ import Administrador from './pages/administrador/administrador'
 import PaginaInicial from './pages/pagina-inicial/paginaInicial'
 import AdminCadastrar from './pages/admin/admin-cadastrar/adminCadastrar'
 import Menu from './pages/menu/menu'
+import Perfil from './pages/perfil/perfil'
 import Config from './pages/configuracao/config'
+import ContaDesativada from './pages/contaDesativadaMessagem/contaDesativada'
 import Erro from './pages/erro/erro'
 import './App.css'
+import contaDesativada from './pages/contaDesativadaMessagem/contaDesativada'
 
 function App() {
 
@@ -20,6 +23,8 @@ function App() {
           <Route path='/cadastrar' element={<Cadastrar></Cadastrar>}></Route>
           <Route path='/menu' element={<Menu></Menu>}></Route>
           <Route path='/menu/configuracao' element={<Config></Config>}></Route>
+          <Route path='/menu/perfil' element={<Perfil></Perfil>}></Route>
+          <Route path='/conta-desativada' element={<ContaDesativada></ContaDesativada>}></Route>
           <Route path='/admin/usuarios' element={<Administrador></Administrador>}></Route>
           <Route path='/admin/administrador' element={<AdminCadastrar></AdminCadastrar>}></Route>
           <Route path='/*' element={<Erro></Erro>}></Route>

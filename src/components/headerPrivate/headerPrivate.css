@@ -26,6 +26,19 @@
 .textHeaderPrivate {
   font-size: 25px;
   font-weight: 700;
+
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.userIcon {
+  width: 40px;
+  border-radius: 100%;
 }
 
 .hidden {

@@ -48,13 +48,13 @@ function sideMenu({menuClass}) {
         <IoMenu className={`icon-button ${menu ? 'hidden' : ''}`}/>
         <IoClose className={`icon-button ${!menu ? 'hidden' : ''}`}/>
       </button>
-      <div className={`menuHeader ${menu ? '' : 'close'}`}>
+      <div className={`menuHeader ${menu ? 'open' : 'close'}`}>
         <button className='buttonMenuSide'>
           {userAdminInfo ? <Link to='/admin/usuarios'>Administrador</Link> : ''}
         </button>
         <button className='buttonMenuSide'><Link to={'/'}>Página Inicial</Link></button>
         <button className='buttonMenuSide'><Link to='/menu'>Menu</Link></button>
-        <button className='buttonMenuSide'>Perfil</button>
+        <button className='buttonMenuSide'><Link to='/menu/perfil'>Perfil</Link></button>
         <button className='buttonMenuSide'><Link to='/menu/configuracao'>Configurações</Link></button>
         <button ref={logoutElement} onClick={logout} className='buttonMenuSide'>Sair</button>
         <Logout ref={logoutElement}  onClick={logout} classList='hidden'></Logout>

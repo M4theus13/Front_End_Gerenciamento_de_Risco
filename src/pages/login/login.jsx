@@ -5,6 +5,7 @@ import './login.css'
 import api from '../../../service/api'
 
 function login() {
+  const token = localStorage.getItem('token')
   const navigate = useNavigate()
 
   //ref input
@@ -21,6 +22,11 @@ function login() {
   ]
 
   useEffect(() => {
+
+    if (token) {
+      navigate('/menu')
+    }
+
     const removeErrorInput = (event) => {
       event.target.classList.remove('error-empty-input-login');
     };

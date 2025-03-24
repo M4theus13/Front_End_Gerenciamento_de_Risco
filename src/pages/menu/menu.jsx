@@ -1,22 +1,26 @@
 import React, { useEffect, useState} from 'react'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate.jsx'
-import { GetUserInfo } from '../../../service/getUsers.js'
 import './menu.css'
-import Logout from '../../components/logout/logout.jsx'
-import { useNavigate } from 'react-router-dom'
+import { Me } from '../../../service/me.js'
+import { jwtDecode } from 'jwt-decode'
 
 function menu() {
+
   const token = localStorage.getItem('token')
 
   useEffect(() => {
     if (!token) {
       return
     } 
-    GetUserInfo(token , setUserLogado, setUsersInfo)
+    const decodedToken = jwtDecode(token)
+    if (!decodedToken.accountActive) {
+      console.log('conta não esta ativada')
+      return
+    }
+    Me(token, setUserLogado)
   }, [])
 
   let [userLogado, setUserLogado] = useState([])//informações do usuario logado para o user info
-  let [usersInfo, setUsersInfo] = useState([]) 
 
   return (
     <div>

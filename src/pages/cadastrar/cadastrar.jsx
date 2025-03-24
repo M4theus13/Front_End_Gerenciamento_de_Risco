@@ -5,6 +5,8 @@ import { useRef, useEffect } from 'react'
 import './cadastrar.css'
 
 function cadastrar() {
+  const token = localStorage.getItem('token')
+
   const navigate = useNavigate()
 
   const inputName = useRef()
@@ -44,6 +46,10 @@ function cadastrar() {
   }
 
   useEffect(() => {
+
+    if (token) {
+      navigate('/menu')
+    }
     // remove os erros quando clicado no input e atualiza seu visual
     inputs.forEach((input) => {
       input.ref.current.addEventListener('focus', removeError);
