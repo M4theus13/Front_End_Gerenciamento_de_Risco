@@ -43,7 +43,7 @@ function sideMenu({menuClass}) {
   }
 
   return (
-    <div className={`${menuClass}`}>
+    <div className={menuClass ? menuClass: ''}>
       <button onClick={handdleClick} className='buttonMenu' >
         <IoMenu className={`icon-button ${menu ? 'hidden' : ''}`}/>
         <IoClose className={`icon-button ${!menu ? 'hidden' : ''}`}/>

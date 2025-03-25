@@ -11,14 +11,42 @@ function contaDesativada() {
   const token = localStorage.getItem('token')
   let [userLogado, setUserLogado] = useState([])
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/login')
-    }
+// ad
+useEffect(() => {
+  const token = localStorage.getItem('token')
 
-    Me(token, setUserLogado)
-  }, [])
-  
+  if (!token) {
+    return
+  } 
+
+  const fetchData = async () => {
+    try {
+      const data = await Me(token);
+      setUserLogado(data)
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+    }
+  };
+
+  fetchData()
+}, [])
+
+// if (userData === null) {
+//   return <div>Carregando...</div>;
+// }
+
+useEffect(() => {
+
+  console.log(userLogado)
+
+
+}, [userLogado])
+if (userLogado?.accountActive) {
+  console.log('conta ativa')
+  return
+}
+
+// a
 
   function returnToHome() {
     navigate('/')
@@ -26,7 +54,7 @@ function contaDesativada() {
 
   return (
     <div>
-      <HeaderPrivate text='' name={userLogado.name}></HeaderPrivate>
+      <HeaderPrivate text='' name={userLogado.name} menu='hidden'></HeaderPrivate>
       <div className='box-erro'>
         <div className='box-erro-container'>
           <img src={iconErro} alt="error-icone" className='error-icone'/>

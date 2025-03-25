@@ -36,6 +36,33 @@ function administrador() {
     GetUserInfo(token, setUserLogado, setUsersInfo)
   }, [])
   
+  const ativarConta = async (userId) => {
+    try{
+      await api.put(`/admin/active-account/${userId}`,{} ,{
+        headers: {Authorization : `Bearer ${token}`}
+        
+      })
+      GetUserInfo(token, setUserLogado, setUsersInfo)
+
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+  const desativarConta = async (userId) => {
+    try{
+      await api.put(`/admin/desactive-account/${userId}`,{} ,{
+        headers: {Authorization : `Bearer ${token}`}
+        
+      })
+      GetUserInfo(token, setUserLogado, setUsersInfo)
+
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+
   const tornarAdmin = async (userId) => {
     try{
       await api.put(`/admin/add-admin/${userId}`,{} ,{
@@ -83,11 +110,14 @@ function administrador() {
               <div className='user-box-infos'>
                 <p>{usersInfo.name}</p>
                 <p>{usersInfo.isAdmin ? 'Administrador' : ''}</p>
+                <p>{usersInfo.accountActive ? 'Conta Ativa' : 'Conta desativada'}</p>
               </div>
               <div className='user-box-buttons'>
                 {(userAdminInfo && !usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button> : ''}
                 {(userAdminInfo && usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
                 {userAdminInfo ? <button className='buttonDeleteUser' onClick={() => excluirUser(usersInfo.id)}>Deletar Usuário</button> : ''}
+                {usersInfo.accountActive ? <button className='buttonDeleteUser' onClick={() => desativarConta(usersInfo.id)}>Desativar Conta</button> : ''}
+                {!usersInfo.accountActive ? <button className='buttonDeleteUser' onClick={() => ativarConta(usersInfo.id)}>Ativar Conta</button> : ''}
               </div>
             </div>
           </div>

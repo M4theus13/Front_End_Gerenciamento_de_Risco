@@ -6,9 +6,8 @@ const logout = forwardRef((props, refs) => {
   const navigate = useNavigate()
 
   const logout = () => {
-    localStorage.removeItem('token')
-    navigate('/')
     navigate('/', {replace: true})
+    localStorage.removeItem('token')
   }
 
   const noLogout = () => {
