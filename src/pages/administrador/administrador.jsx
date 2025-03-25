@@ -5,8 +5,12 @@ import { GetUserInfo }from '../../../service/getUsers'
 import { jwtDecode } from 'jwt-decode'
 import './administrador.css'
 import { replace, useNavigate } from 'react-router-dom'
+import UserIcon from '../../assets/user-icon.jpg'
 
 function administrador() {
+
+  const userIcon = UserIcon
+
   const navigate = useNavigate()
 
   let [userLogado, setUserLogado] = useState([])//informações do usuario logado para o user info
@@ -108,16 +112,24 @@ function administrador() {
           <div key={key}>
             <div className='user-box'>
               <div className='user-box-infos'>
-                <p>{usersInfo.name}</p>
+                <div className='user-box-name'>
+                  <img src={userIcon} alt="userIcon" className='userIcon'/>
+                  <p>{usersInfo.name}</p>
+                </div>
                 <p>{usersInfo.isAdmin ? 'Administrador' : ''}</p>
-                <p>{usersInfo.accountActive ? 'Conta Ativa' : 'Conta desativada'}</p>
+                <div className='user-box-account'>
+                  <div className={usersInfo.accountActive ? 'circle-status-account-on' : 'circle-status-account-off'}></div>
+                  <p>{usersInfo.accountActive ? 'Conta Ativa' : 'Conta desativada'}</p>
+                </div>
               </div>
               <div className='user-box-buttons'>
                 {(userAdminInfo && !usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button> : ''}
                 {(userAdminInfo && usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
+                {usersInfo.accountActive ?
+                <button className='buttonDesactiveAccount' onClick={() => desativarConta(usersInfo.id)}>Desativar Conta</button> 
+                : ''}
+                {!usersInfo.accountActive ? <button className='buttonActiveAccount' onClick={() => ativarConta(usersInfo.id)}>Ativar Conta</button> : ''}
                 {userAdminInfo ? <button className='buttonDeleteUser' onClick={() => excluirUser(usersInfo.id)}>Deletar Usuário</button> : ''}
-                {usersInfo.accountActive ? <button className='buttonDeleteUser' onClick={() => desativarConta(usersInfo.id)}>Desativar Conta</button> : ''}
-                {!usersInfo.accountActive ? <button className='buttonDeleteUser' onClick={() => ativarConta(usersInfo.id)}>Ativar Conta</button> : ''}
               </div>
             </div>
           </div>

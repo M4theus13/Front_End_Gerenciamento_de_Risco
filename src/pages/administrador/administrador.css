@@ -29,6 +29,38 @@
   gap: 10px;
 }
 
+.user-box-name {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.userIcon {
+  width: 25px;
+}
+
+.user-box-account {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-status-account-off, .circle-status-account-on {
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  border: 1px solid #fff;
+}
+
+.circle-status-account-off {
+  background-color: red;
+}
+
+.circle-status-account-on {
+  background-color: green;
+}
+
 .user-box-buttons {
   display: flex;
   flex-direction: column;
@@ -97,4 +129,80 @@
 
 .buttonDeleteUser:active {
   transform: scale(0.96);
+}
+
+/* Botão conta ativa ou desativada */
+
+.buttonActiveAccount {
+  padding: 12px 30px;
+  background: #27a5ae;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonActiveAccount:hover {
+  background: #219696;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.buttonActiveAccount:active {
+  transform: scale(0.96);
+}
+
+.buttonActiveAccount::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+}
+
+.buttonDesactiveAccount {
+  padding: 12px 30px;
+  background: #510881;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonDesactiveAccount:hover {
+  background: #4e2196;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.buttonDesactiveAccount:active {
+  transform: scale(0.96);
+}
+
+.buttonDesactiveAccount::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
 }
