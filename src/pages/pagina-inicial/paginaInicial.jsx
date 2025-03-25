@@ -3,12 +3,11 @@ import Header from '../../components/header/header'
 import { Link } from 'react-router-dom'
 import './paginaInicial.css'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
-import { GetUserInfo }from '../../../service/getUsers'
+import { Me } from '../../../service/me'
 
 function paginaInicial() {
 
-  let [userLogado, setUserLogado] = useState([])//informações do usuario logado para o user info
-  let [usersInfo, setUsersInfo] = useState([]) //informações dos usuarios que estão no site
+  let [userData, setUserData] = useState([])//informações do usuario logado para o user info
   
   const token = localStorage.getItem('token')
 
@@ -16,13 +15,22 @@ function paginaInicial() {
     if (!token) {
       return
     } 
-    GetUserInfo(token, setUserLogado, setUsersInfo)
+    const fetchData = async () => {
+      try {
+        const data = await Me(token);
+        setUserData(data)
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+    };
+  
+    fetchData()
   }, [])
 
   return (
     <div className='paginaInicial'>
       {
-         !token ? <Header text='Pagina Principal' cadastro='ativado' login='ativado'></Header> : <HeaderPrivate text='Página inicial' name={userLogado.name}></HeaderPrivate> 
+         !token ? <Header text='Pagina Principal' cadastro='ativado' login='ativado'></Header> : <HeaderPrivate text='Página inicial' user={{name: userData?.name, avatarURL:userData?.avatarURL}}></HeaderPrivate> 
       }
       <button>
         <Link to='/menu'>Menu</Link>

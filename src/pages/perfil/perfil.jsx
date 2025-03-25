@@ -3,30 +3,52 @@ import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
 import { Me } from '../../../service/me'
 import './perfil.css'
 import UserIcon from '../../assets/user-icon.jpg'
+import EditImageIcon from '../../assets/edit-image-icon.png'
+import { useNavigate } from 'react-router-dom'
 
 function perfil() {
-
-  let [userLogado, setUserLogado] = useState([])
+  const navigate = useNavigate()
+  let [userData, setUserData] = useState([])
   const token = localStorage.getItem('token')
   useEffect(() => {
     if (!token) {
       return
     } 
-    Me(token, setUserLogado)
+    const fetchData = async () => {
+      try {
+        const data = await Me(token);
+        setUserData(data)
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+    };
+  
+    fetchData()
   }, [])
   
   const userIcon = UserIcon
+  const editImageIcon = EditImageIcon
+
+
+  function clickEditImage () {
+    navigate('/menu/configuracao')
+  }
 
   return (
     <div>
-      <HeaderPrivate text='Perfil' name={userLogado.name}></HeaderPrivate>
+      <HeaderPrivate text='Perfil' user={{name: userData?.name, avatarURL:userData?.avatarURL}}></HeaderPrivate>
       <div className='container-perfil'>
         <div className='perfil'>
           <div className='perfil-info'>
-            <img src={userIcon} alt="userIcon" className='userIconPerfil'/>
+            <div className='boxUserIconPerfil'>
+              <img src={userIcon} alt="userIcon" className='userIconPerfil'/>
+            <div className='boxEditImageIcon' onClick={clickEditImage}>
+              <img src={editImageIcon} alt="userIcon" className='editImageIcon'/>
+            </div>
+            </div>
             <div>
-              <p>Nome: {userLogado.name}</p>
-              <p>Email: {userLogado.email}</p>
+              <p>Nome: {userData.name}</p>
+              <p>Email: {userData.email}</p>
             </div>
           </div>
         </div>

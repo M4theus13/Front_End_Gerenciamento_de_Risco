@@ -106,7 +106,7 @@ function administrador() {
 
   return (
     <div >
-      <HeaderPrivate text='Usuarios' name={userLogado ? userLogado.name : ''} ></HeaderPrivate>
+      <HeaderPrivate text='Usuarios' user={{name: userLogado?.name, avatarURL:userLogado?.avatarURL}} ></HeaderPrivate>
       <div className='box-listar'>
         {usersInfo.map((usersInfo, key = usersInfo.id) => (
           <div key={key}>

@@ -2,10 +2,8 @@ import React from 'react'
 import './headerPrivate.css'
 import SideMenu from '../sideMenu/sideMenu.jsx';
 import { Navigate } from 'react-router-dom';
-import UserIcon from '../../assets/user-icon.jpg'
 
-function headerPrivate({text, name, menu}) {
-  const userIcon = UserIcon
+function headerPrivate({text, user, menu}) {
   const token = localStorage.getItem('token')
 
   // Redireciona imediatamente se não houver token
@@ -20,8 +18,8 @@ function headerPrivate({text, name, menu}) {
         <p>{text}</p>
         <div className='userMenuBox'>
           <div className='userMenu textHeaderPrivate userInfo'>
-            <p>{name}</p>
-            <img src={userIcon} alt="userIcon" className='userIcon'/>
+            <p>{user?.name}</p>
+            <img src={user?.avatarURL} className='userIcon'/>
           </div>
           <SideMenu menuClass={menu}></SideMenu>
         </div>

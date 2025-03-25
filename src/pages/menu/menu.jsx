@@ -31,7 +31,7 @@ function menu() {
   
   return (
     <div>
-      <HeaderPrivate text='Menu' name={userData?.name} ></HeaderPrivate>
+      <HeaderPrivate text='Menu' user={{name: userData?.name, avatarURL:userData?.avatarURL}} ></HeaderPrivate>
       <div className='box-options'>
         <div className='options'>Conta SPDA</div>
         <div className='options'>Aterramento</div>

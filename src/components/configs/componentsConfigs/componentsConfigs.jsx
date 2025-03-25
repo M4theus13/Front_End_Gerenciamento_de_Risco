@@ -2,7 +2,59 @@ import React, { useEffect, useRef, useState } from 'react';
 import { GetUserInfo } from '../../../../service/getUsers';
 import './componentsConfigs.css'
 import api from '../../../../service/api';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Me } from '../../../../service/me';
+
+function ComponentUpdateAvatar() {
+
+  const token = localStorage.getItem('token')
+  let [userData, setUserData] = useState()
+
+  useEffect(() => {
+
+    async function fetchData() {
+      const data = await Me(token)
+      setUserData(data)
+    }
+    
+    fetchData()
+    
+  }, [])
+
+// a
+const [file, setFile] = useState(null);
+const [preview, setPreview] = useState('');
+
+const handleFileChange = (e) => {
+  const selectedFile = e.target.files[0];
+  if (selectedFile) {
+    setFile(selectedFile);
+    // Preview da imagem
+    const reader = new FileReader();
+    reader.onloadend = () => setPreview(reader.result);
+    reader.readAsDataURL(selectedFile);
+  }
+};
+
+const handleUpload = async () => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+  formData.append('userId', userId);
+
+  try {
+  } catch (error) {
+  }
+};
+// a
+  
+  return <div>
+    <img src={userData?.avatarURL} alt="avatarUser" className='componentAvatarUser'/>
+
+    <input type="file" onChange={handleFileChange} accept="image/*" />
+      {preview && <img src={preview} alt="Preview" style={{ width: '100px' }} />}
+    <button onClick={handleUpload}>Enviar Avatar</button>
+  </div>
+}
 
 function ComponentName() {
   const navigate = useNavigate()
@@ -446,4 +498,4 @@ function ComponentDeleteAccount() {
   </div>;
 }
 
-export { ComponentName, ComponentEmail, ComponentPassword, ComponentDeleteAccount };
+export { ComponentUpdateAvatar, ComponentName, ComponentEmail, ComponentPassword, ComponentDeleteAccount };
