@@ -20,6 +20,9 @@ function menu() {
     const fetchData = async () => {
       try {
         const data = await Me(token);
+        if (data === undefined) {
+          localStorage.removeItem('token')
+        }
         setUserData(data)
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

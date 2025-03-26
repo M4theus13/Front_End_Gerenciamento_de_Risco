@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/header/header'
-import { Link } from 'react-router-dom'
+import { data, Link } from 'react-router-dom'
 import './paginaInicial.css'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
 import { Me } from '../../../service/me'
+import { jwtDecode } from 'jwt-decode'
 
 function paginaInicial() {
 
@@ -18,12 +19,15 @@ function paginaInicial() {
     const fetchData = async () => {
       try {
         const data = await Me(token);
+        if (data === undefined) {
+          localStorage.removeItem('token')
+        }
         setUserData(data)
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
     };
-  
+
     fetchData()
   }, [])
 

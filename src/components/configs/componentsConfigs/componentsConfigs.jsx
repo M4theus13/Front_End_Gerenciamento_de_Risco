@@ -14,6 +14,9 @@ function ComponentUpdateAvatar() {
 
     async function fetchData() {
       const data = await Me(token)
+      if (data === undefined) {
+        localStorage.removeItem('token')
+      }
       setUserData(data)
     }
     
