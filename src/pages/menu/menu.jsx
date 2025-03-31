@@ -14,6 +14,7 @@ function menu() {
     const token = localStorage.getItem('token')
 
     if (!token) {
+      console.log('sem tokena')
       return
     } 
 
