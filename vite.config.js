@@ -7,5 +7,8 @@ export default defineConfig({
   base: "/Front_End_Gerenciamento_de_Risco/",
   server: {
     host: true // ou "0.0.0.0" para expor a rede
-  }
+  },
+  build: {
+    outDir: 'dist', // ou docs
+  },
 })
