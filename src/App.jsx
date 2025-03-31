@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter basename="/Front_End_Gerenciamento_de_Risco/">
+      <BrowserRouter basename="/Front_End_Gerenciamento_de_Risco">
         <Routes>
           <Route path='/' element={<PaginaInicial></PaginaInicial>}></Route>
           <Route path='/login' element={<Login></Login>}></Route>
