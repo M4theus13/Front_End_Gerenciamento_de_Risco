@@ -10,7 +10,6 @@ import Config from './pages/configuracao/config'
 import ContaDesativada from './pages/contaDesativadaMessagem/contaDesativada'
 import Erro from './pages/erro/erro'
 import './App.css'
-import contaDesativada from './pages/contaDesativadaMessagem/contaDesativada'
 
 function App() {
 
