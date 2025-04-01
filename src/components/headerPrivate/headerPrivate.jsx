@@ -6,8 +6,7 @@ import { Navigate } from 'react-router-dom';
 function headerPrivate({text, user, menu}) {
   const token = localStorage.getItem('token')
 
-  // Redireciona imediatamente se não houver token
-  if (!token) {
+  if (! token) {
     console.log('sem token')
     return <Navigate to="/login" replace />
   }
@@ -26,6 +25,6 @@ function headerPrivate({text, user, menu}) {
       </nav>
     </header>
   )
-}
+} 
 
 export default headerPrivate

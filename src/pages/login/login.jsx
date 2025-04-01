@@ -74,12 +74,19 @@ function login() {
             inputs.forEach((input) => {
               input.ref.current.classList.add('error-empty-input-login')
             })
+
             return
           }
           const token = response.data
           localStorage.setItem('token', token)
-          navigate('/menu')
+          if (localStorage.getItem('token') === token) {
+            navigate('/menu');
+          } else {
+            console.error("Falha ao salvar token!");
+          }
         } catch (err) {
+          console.log('login falhou')
+
           console.log('erro no login')
           console.log(err)
         }

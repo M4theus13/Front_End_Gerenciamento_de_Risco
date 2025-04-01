@@ -2,13 +2,10 @@ import React, { useEffect, useState} from 'react'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate.jsx'
 import './menu.css'
 import { Me } from '../../../service/me.js'
-import { data, useNavigate } from 'react-router-dom'
 
 function menu() {
 
-  const navigate = useNavigate()
   const [userData, setUserData] = useState(null)
-
   
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -22,7 +19,7 @@ function menu() {
       try {
         const data = await Me(token);
         if (data === undefined) {
-          localStorage.removeItem('token')
+          // localStorage.removeItem('token')
         }
         setUserData(data)
       } catch (error) {
