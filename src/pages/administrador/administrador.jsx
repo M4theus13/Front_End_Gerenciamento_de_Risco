@@ -30,9 +30,9 @@ function administrador() {
     const decoded = jwtDecode(token);
     
     setUserIdInfo(decoded.id) // Obtém o ID do usuário do token decodificado
-    setUserAdminInfo(decoded.admin) // Obtém se é ADMIN do usuário do token decodificado
+    setUserAdminInfo(decoded.isAdmin) // Obtém se é ADMIN do usuário do token decodificado
     
-   if (!decoded.admin) {
+   if (!decoded.isAdmin) {
      navigate('/menu', replace)
      return
    }
@@ -73,6 +73,7 @@ function administrador() {
         headers: {Authorization : `Bearer ${token}`}
         
       })
+      console.log('aqui')
       GetUserInfo(token, setUserLogado, setUsersInfo)
 
     } catch (err) {

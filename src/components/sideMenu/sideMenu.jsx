@@ -15,8 +15,7 @@ function sideMenu({menuClass}) {
   }
 
   const decoded = jwtDecode(token) 
-  const userAdminInfo = decoded.admin
-
+  const userAdminInfo = decoded.isAdmin
   const [menu,setMenu] = useState(false) //menu começa como false
   
   const handdleClick = () => {
