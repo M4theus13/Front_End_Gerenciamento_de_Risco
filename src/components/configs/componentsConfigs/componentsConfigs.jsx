@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { GetUserInfo } from '../../../../service/getUsers';
+import { Users } from '../../../../service/users';
 import './componentsConfigs.css'
 import api from '../../../../service/api';
 import { useNavigate } from 'react-router-dom';
 import { Me } from '../../../../service/me';
+import UserIcon from '../../../assets/default-avatar-user.jpg'
 
 function ComponentUpdateAvatar() {
-
+  const userIcon = UserIcon
   const token = localStorage.getItem('token')
   let [userData, setUserData] = useState()
 
@@ -51,7 +52,7 @@ const handleUpload = async () => {
 // a
   
   return <div>
-    <img src={userData?.avatarURL} alt="avatarUser" className='componentAvatarUser'/>
+    <img src={userIcon} alt="avatarUser" className='componentAvatarUser'/>
 
     <input type="file" onChange={handleFileChange} accept="image/*" />
       {preview && <img src={preview} alt="Preview" style={{ width: '100px' }} />}
@@ -74,7 +75,7 @@ function ComponentName() {
       navigate('/login')
       return
     } 
-    GetUserInfo(token, setUserLogado, setUserInfo )
+    Users(token )
 
     const removeErrorInput = (event) => {
       event.target.classList.remove('error');
@@ -164,7 +165,7 @@ function ComponentEmail() {
 
 
   useEffect(() => {
-    GetUserInfo(token, setUserLogado, setUserInfo )
+    Users(token )
     
     const removeErrorInput = (event) => {
       event.target.classList.remove('error');
@@ -318,7 +319,7 @@ function ComponentPassword() {
 
 
   useEffect(() => {
-    GetUserInfo(token, setUserLogado, setUserInfo )
+    Users(token )
 
 
 
@@ -477,7 +478,7 @@ function ComponentDeleteAccount() {
 
 
   useEffect(() => {
-    GetUserInfo(token, setUserLogado, setUserInfo )
+    Users(token )
   }, [])
 
   const navigate = useNavigate()

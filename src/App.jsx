@@ -13,9 +13,10 @@ import './App.css'
 
 function App() {
   console.log("URL da API:", import.meta.env.VITE_API_URL);
+  console.log("URL do Front:",import.meta.env.VITE_BASE_URL);
   return (
     <>
-      <BrowserRouter basename="/Front_End_Gerenciamento_de_Risco">
+      <BrowserRouter basename={import.meta.env.VITE_BASE_URL}> {/* basename={import.meta.env.VITE_BASE_URL} */}
         <Routes>
           <Route path='/' element={<PaginaInicial></PaginaInicial>}></Route>
           <Route path='/login' element={<Login></Login>}></Route>

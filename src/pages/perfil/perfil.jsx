@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
 import { Me } from '../../../service/me'
 import './perfil.css'
-import UserIcon from '../../assets/user-icon.jpg'
+import UserIcon from '../../assets/default-avatar-user.jpg'
 import EditImageIcon from '../../assets/edit-image-icon.png'
 import { useNavigate } from 'react-router-dom'
 
@@ -39,7 +39,7 @@ function perfil() {
 
   return (
     <div>
-      <HeaderPrivate text='Perfil' user={{name: userData?.name, avatarURL:userData?.avatarURL}}></HeaderPrivate>
+      <HeaderPrivate text='Perfil' user={{name: userData?.name}}></HeaderPrivate>
       <div className='container-perfil'>
         <div className='perfil'>
           <div className='perfil-info'>

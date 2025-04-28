@@ -1,44 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../../service/api'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
-import { GetUserInfo }from '../../../service/getUsers'
-import { jwtDecode } from 'jwt-decode'
+import { Me } from '../../../service/me.js'
+import { Users }from '../../../service/users.js'
 import './administrador.css'
 import { replace, useNavigate } from 'react-router-dom'
-import UserIcon from '../../assets/user-icon.jpg'
+import UserIcon from '../../assets/default-avatar-user.jpg'
+
 
 function administrador() {
-
   const userIcon = UserIcon
-
   const navigate = useNavigate()
 
-  let [userLogado, setUserLogado] = useState([])//informações do usuario logado para o user info
-  let [usersInfo, setUsersInfo] = useState([]) //informações dos usuarios que estão no site
+  let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
+  let [usersData, setUsersData] = useState([]) //informações dos usuarios que estão no site
   
-  let [userIdInfo, setUserIdInfo] = useState([]) //informações do usuario logado para o user info 
-  let [userAdminInfo, setUserAdminInfo] = useState() //informações do usuario logado para o user info  
-
-  const token = localStorage.getItem('token')
+  const [token, setToken] = useState(null); // Estado para o token
+  
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken); // Atualiza o estado do token
+  }, []);
 
   useEffect(() => {
+
     if (!token) {
-      console.log('sem token')
-      navigate('/login', replace)
+
+      console.log('sem token na pagina administrador')
       return
     } 
-    const decoded = jwtDecode(token);
-    
-    setUserIdInfo(decoded.id) // Obtém o ID do usuário do token decodificado
-    setUserAdminInfo(decoded.isAdmin) // Obtém se é ADMIN do usuário do token decodificado
-    
-   if (!decoded.isAdmin) {
-     navigate('/menu', replace)
-     return
-   }
 
-    GetUserInfo(token, setUserLogado, setUsersInfo)
-  }, [])
+    // if (!userData?.isAdmin) {
+    //   navigate('/menu', replace)
+    //   console.log('sem permissão')
+    //   return
+    // }
+
+    const fetchData = async () => {
+      try {
+        const data = await Me(token);
+        const dataUsers = await Users(token)
+        setUserData(data)
+        setUsersData(dataUsers)
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+        localStorage.removeItem('token'); // Token inválido, remove
+        setToken(null); // Atualiza estado do token
+      }
+    };
+
+    fetchData()
+  }, [token])
   
   const ativarConta = async (userId) => {
     try{
@@ -46,7 +58,6 @@ function administrador() {
         headers: {Authorization : `Bearer ${token}`}
         
       })
-      GetUserInfo(token, setUserLogado, setUsersInfo)
 
     } catch (err) {
       console.log(err.message)
@@ -59,13 +70,11 @@ function administrador() {
         headers: {Authorization : `Bearer ${token}`}
         
       })
-      GetUserInfo(token, setUserLogado, setUsersInfo)
 
     } catch (err) {
       console.log(err.message)
     }
   }
-
 
   const tornarAdmin = async (userId) => {
     try{
@@ -74,7 +83,6 @@ function administrador() {
         
       })
       console.log('aqui')
-      GetUserInfo(token, setUserLogado, setUsersInfo)
 
     } catch (err) {
       console.log(err.message)
@@ -86,7 +94,6 @@ function administrador() {
       await api.put(`/admin/rem-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-      GetUserInfo(token, setUserLogado, setUsersInfo)
 
     } catch (err) {
       console.log(err.message)
@@ -98,39 +105,45 @@ function administrador() {
       await api.put(`/admin/delete-user/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-      GetUserInfo(token, setUserLogado, setUsersInfo)
 
       } catch (err) {
         console.log(err)
       } 
   }
 
+  console.log(userData)
+  console.log(usersData)
+  if (!userData) {
+    return <div className='headerPrivate'><p>Carregando...</p></div>
+  } else{
+
   return (
+    
     <div >
-      <HeaderPrivate text='Usuarios' user={{name: userLogado?.name, avatarURL:userLogado?.avatarURL}} ></HeaderPrivate>
+      <HeaderPrivate text='Usuarios' user={{name: userData?.name}} ></HeaderPrivate>
       <div className='box-listar'>
-        {usersInfo.map((usersInfo, key = usersInfo.id) => (
+        {usersData.map((usersData, key = usersData.id) => (
           <div key={key}>
             <div className='user-box'>
               <div className='user-box-infos'>
                 <div className='user-box-name'>
                   <img src={userIcon} alt="userIcon" className='userIcon'/>
-                  <p>{usersInfo.name}</p>
+                  <p>{usersData.name}</p>
                 </div>
-                <p>{usersInfo.isAdmin ? 'Administrador' : ''}</p>
+                <p>{usersData.isAdmin ? 'Administrador' : ''}</p>
                 <div className='user-box-account'>
-                  <div className={usersInfo.accountActive ? 'circle-status-account-on' : 'circle-status-account-off'}></div>
-                  <p>{usersInfo.accountActive ? 'Conta Ativa' : 'Conta desativada'}</p>
+                  <div className={usersData.accountActive ? 'circle-status-account-on' : 'circle-status-account-off'}></div>
+                  <p>{usersData.accountActive ? 'Conta Ativa' : 'Conta desativada'}</p>
                 </div>
               </div>
               <div className='user-box-buttons'>
-                {(userAdminInfo && !usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => tornarAdmin(usersInfo.id)}>Tornar administrador</button> : ''}
-                {(userAdminInfo && usersInfo.isAdmin) ?  <button className='buttonAdmin' onClick={() => removerAdmin(usersInfo.id)}>Remover administrador</button> : ''}
-                {usersInfo.accountActive ?
-                <button className='buttonDesactiveAccount' onClick={() => desativarConta(usersInfo.id)}>Desativar Conta</button> 
+                {(userData.isAdmin && !usersData.isAdmin) ?  <button className='buttonAdmin' onClick={() => tornarAdmin(usersData.id)}>Tornar administrador</button> : ''}
+                {(userData.isAdmin && usersData.isAdmin) ?  <button className='buttonAdmin' onClick={() => removerAdmin(usersData.id)}>Remover administrador</button> : ''}
+                {usersData.accountActive ?
+                <button className='buttonDesactiveAccount' onClick={() => desativarConta(usersData.id)}>Desativar Conta</button> 
                 : ''}
-                {!usersInfo.accountActive ? <button className='buttonActiveAccount' onClick={() => ativarConta(usersInfo.id)}>Ativar Conta</button> : ''}
-                {userAdminInfo ? <button className='buttonDeleteUser' onClick={() => excluirUser(usersInfo.id)}>Deletar Usuário</button> : ''}
+                {!usersData.accountActive ? <button className='buttonActiveAccount' onClick={() => ativarConta(usersInfo.id)}>Ativar Conta</button> : ''}
+                {userData.isAdmin ? <button className='buttonDeleteUser' onClick={() => excluirUser(usersData.id)}>Deletar Usuário</button> : ''}
               </div>
             </div>
           </div>
@@ -139,6 +152,7 @@ function administrador() {
       </div>
     </div>
   )
+}
 }
 
 export default administrador
