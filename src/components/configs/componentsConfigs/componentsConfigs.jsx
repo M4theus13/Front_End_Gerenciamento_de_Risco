@@ -5,9 +5,11 @@ import api from '../../../../service/api';
 import { useNavigate } from 'react-router-dom';
 import { Me } from '../../../../service/me';
 import UserIcon from '../../../assets/default-avatar-user.jpg'
+import ErroImg from '../../../assets/erro-icon.png'
 
 function ComponentUpdateAvatar() {
   const userIcon = UserIcon
+  const navigate = useNavigate()
   const token = localStorage.getItem('token')
   let [userData, setUserData] = useState()
 
@@ -41,22 +43,37 @@ const handleFileChange = (e) => {
 };
 
 const handleUpload = async () => {
-  const formData = new FormData();
-  formData.append('avatar', file);
-  formData.append('userId', userId);
+  // const formData = new FormData();
+  // formData.append('avatar', file);
+  // formData.append('userId', userId);
+  navigate('/menu')
 
   try {
   } catch (error) {
   }
 };
-// a
   
-  return <div>
-    <img src={userIcon} alt="avatarUser" className='componentAvatarUser'/>
+  return <div className='componentAvatar'>
+      <div className='componentAvatarBox'>
+        <div className='componentAvatarBoxFotoAtual'>
+          <p>Foto Atual</p>
+          <img src={userIcon} alt="avatarUser" className='componentAvatarBoxFotoAtualImage'/>  
+        </div>
 
-    <input type="file" onChange={handleFileChange} accept="image/*" />
-      {preview && <img src={preview} alt="Preview" style={{ width: '100px' }} />}
-    <button onClick={handleUpload}>Enviar Avatar</button>
+        {preview ?
+        <div className='componentAvatarBoxFotoNova'>
+          <p>Foto Nova</p>
+          {preview && <img src={preview} alt="Preview" className='componentAvatarBoxfotoNovaImage'/>}
+        </div>
+          : <div></div>}
+      </div>
+
+      <div className='componentAvatarInputBox'>
+        <input id='image' type="file" onChange={handleFileChange} accept="image/*" class="hidden-input"/>
+        <label for='image' class="custom-button">Escolher o arquivo</label>
+      </div>
+      
+      <button onClick={handleUpload}>Enviar Avatar</button>
   </div>
 }
 
@@ -472,6 +489,7 @@ function ComponentPassword() {
 }
 
 function ComponentDeleteAccount() {
+  const erroIcon = ErroImg
   const token = localStorage.getItem('token')
   let [userLogado, setUserLogado] = useState()
   let [usersInfo, setUserInfo] = useState() 
@@ -497,6 +515,7 @@ function ComponentDeleteAccount() {
   }
 
   return <div className='componentDeleteAccount'>
+    <img src={erroIcon} alt="error-icon" />
     <p>Deseja excluir sua conta?</p>
     <button onClick={deleteAccount}>Excluir</button>
   </div>;
