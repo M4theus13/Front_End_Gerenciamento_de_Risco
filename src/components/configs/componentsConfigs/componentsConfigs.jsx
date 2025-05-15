@@ -6,51 +6,84 @@ import { useNavigate } from 'react-router-dom';
 import { Me } from '../../../../service/me';
 import UserIcon from '../../../assets/default-avatar-user.jpg'
 import ErroImg from '../../../assets/erro-icon.png'
+import { jwtDecode } from 'jwt-decode'
 
 function ComponentUpdateAvatar() {
   const userIcon = UserIcon
   const navigate = useNavigate()
-  const token = localStorage.getItem('token')
-  let [userData, setUserData] = useState()
+  let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
+
+  const [token, setToken] = useState(null); // Estado para o token
+
+  function isTokenExpired(token) {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.exp === undefined) {
+        return false;
+      }
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decoded.exp < currentTime;
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+      return true; 
+    }
+  }
 
   useEffect(() => {
+    const controller = new AbortController();
 
-    async function fetchData() {
-      const data = await Me(token)
-      if (data === undefined) {
-        localStorage.removeItem('token')
+    const fetchData = async () => {
+      try {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken || isTokenExpired(storedToken)) {
+          console.log('Token inválido ou expirado!');
+          setToken(null); 
+          navigate('/login')
+          return
+        } 
+        setToken(storedToken); 
+        const data = await Me(storedToken, { signal: controller.signal });
+        setUserData(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Erro ao buscar dados:', error);
+          if (localStorage.getItem('token')) {
+            console.log('removendo token')
+            localStorage.removeItem('token');
+            setToken(null);
+          }
+        }
       }
-      setUserData(data)
-    }
-    
+    };
+
     fetchData()
-    
-  }, [])
 
-// a
-const [file, setFile] = useState(null);
-const [preview, setPreview] = useState('');
+    return () => controller.abort();
+  }, [token]); 
 
-const handleFileChange = (e) => {
-  const selectedFile = e.target.files[0];
-  if (selectedFile) {
-    setFile(selectedFile);
-    // Preview da imagem
-    const reader = new FileReader();
-    reader.onloadend = () => setPreview(reader.result);
-    reader.readAsDataURL(selectedFile);
-  }
-};
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState('');
 
-const handleUpload = async () => {
-  // const formData = new FormData();
-  // formData.append('avatar', file);
-  // formData.append('userId', userId);
-  navigate('/menu')
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      // Preview da imagem
+      const reader = new FileReader();
+      reader.onloadend = () => setPreview(reader.result);
+      reader.readAsDataURL(selectedFile);
+    }
+  };
 
-  try {
-  } catch (error) {
-  }
+  const handleUpload = async () => {
+    // const formData = new FormData();
+    // formData.append('avatar', file);
+    // formData.append('userId', userId);
+    navigate('/menu')
+
+    try {
+    } catch (error) {
+    }
 };
   
   return <div className='componentAvatar'>
@@ -69,31 +102,69 @@ const handleUpload = async () => {
       </div>
 
       <div className='componentAvatarInputBox'>
-        <input id='image' type="file" onChange={handleFileChange} accept="image/*" class="hidden-input"/>
-        <label for='image' class="custom-button">Escolher o arquivo</label>
+        <input id='image' type="file" onChange={handleFileChange} accept="image/*" className="hidden-input"/>
+        <label htmlFor='image' className="custom-button">Escolher o arquivo</label>
       </div>
       
       <button onClick={handleUpload}>Enviar Avatar</button>
   </div>
 }
 
+//NOME
 function ComponentName() {
-  const navigate = useNavigate()
   let hasErrorName = false
+  
+  const navigate = useNavigate()
+  let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
+    const [token, setToken] = useState(null); // Estado para o token
+  
+    function isTokenExpired(token) {
+      try {
+        const decoded = jwtDecode(token);
+        if (decoded.exp === undefined) {
+          return false;
+        }
+        const currentTime = Math.floor(Date.now() / 1000);
+        return decoded.exp < currentTime;
+      } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+        return true; 
+      }
+    }
+  
+    useEffect(() => {
+      const controller = new AbortController();
+  
+      const fetchData = async () => {
+        try {
+          const storedToken = localStorage.getItem('token');
+          if (!storedToken || isTokenExpired(storedToken)) {
+            console.log('Token inválido ou expirado!');
+            setToken(null); 
+            navigate('/login')
+            return
+          } 
+          setToken(storedToken); 
+          const data = await Me(storedToken, { signal: controller.signal });
+          setUserData(data);
+        } catch (error) {
+          if (error.name !== 'AbortError') {
+            console.error('Erro ao buscar dados:', error);
+            if (localStorage.getItem('token')) {
+              console.log('removendo token')
+              localStorage.removeItem('token');
+              setToken(null);
+            }
+          }
+        }
+      };
+  
+      fetchData()
 
-  const token = localStorage.getItem('token')
-  let [userLogado, setUserLogado] = useState()
-  let [usersInfo, setUserInfo] = useState() 
-
+      return () => controller.abort();
+    }, [token]); 
 
   useEffect(() => {
-    if (!token) {
-      console.log('sem token')
-      navigate('/login')
-      return
-    } 
-    Users(token )
-
     const removeErrorInput = (event) => {
       event.target.classList.remove('error');
       event.target.placeholder = ''
@@ -134,7 +205,7 @@ function ComponentName() {
 
       if (!hasErrorName) {
 
-        await api.put(`/edit-name-user/${userLogado.id}`, {
+        await api.put(`/edit-name-user/${userData.id}`, {
           name: inputNewName.current.value
         }, {
           headers: {Authorization : `Bearer ${token}`}
@@ -154,7 +225,7 @@ function ComponentName() {
       </div>
 
       <div className='componentName-current-name-input-box'>
-        <input type="text" value={userLogado?.name || ''} readOnly/>
+        <input type="text" value={userData?.name || ''} readOnly/>
       </div>
     </div>
 
@@ -173,16 +244,60 @@ function ComponentName() {
   </div>;
 }
 
+//EMAIL
 function ComponentEmail() {
 
-  const navigate = useNavigate()  
-  const token = localStorage.getItem('token')
-  let [userLogado, setUserLogado] = useState()
-  let [usersInfo, setUserInfo] = useState() 
+  const navigate = useNavigate()
+  let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
+  const [token, setToken] = useState(null); // Estado para o token
 
+  function isTokenExpired(token) {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.exp === undefined) {
+        return false;
+      }
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decoded.exp < currentTime;
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+      return true; 
+    }
+  }
 
   useEffect(() => {
-    Users(token )
+    const controller = new AbortController();
+
+    const fetchData = async () => {
+      try {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken || isTokenExpired(storedToken)) {
+          console.log('Token inválido ou expirado!');
+          setToken(null); 
+          navigate('/login')
+          return
+        } 
+        setToken(storedToken); 
+        const data = await Me(storedToken, { signal: controller.signal });
+        setUserData(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Erro ao buscar dados:', error);
+          if (localStorage.getItem('token')) {
+            console.log('removendo token')
+            localStorage.removeItem('token');
+            setToken(null);
+          }
+        }
+      }
+    };
+
+    fetchData()
+
+    return () => controller.abort();
+  }, [token]); 
+
+  useEffect(() => {
     
     const removeErrorInput = (event) => {
       event.target.classList.remove('error');
@@ -243,7 +358,7 @@ function ComponentEmail() {
     if (!hasErrorEmail){
       //validação se o email atual é correspondente ao email do usuario
       try  {
-        const verificaEmail = await api.post(`/verify-email/${userLogado.id}`, {
+        const verificaEmail = await api.post(`/verify-email/${userData?.id}`, {
           email: inputEmail.current.value
         }, {
           headers: {Authorization : `Bearer ${token}`}
@@ -290,7 +405,7 @@ function ComponentEmail() {
 
     async function updateEmail() {
       try {
-        await api.put(`/edit-email-user/${userLogado.id}`, {
+        await api.put(`/edit-email-user/${userData.id}`, {
           newEmail: inputNewEmail.current.value
         }, {
           headers: {Authorization : `Bearer ${token}`}
@@ -328,17 +443,60 @@ function ComponentEmail() {
 
 }
 
+//SENHA
 function ComponentPassword() {
 
-  const token = localStorage.getItem('token')
-  let [userLogado, setUserLogado] = useState()
-  let [usersInfo, setUserInfo] = useState() 
+  const navigate = useNavigate()
+  let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
+  const [token, setToken] = useState(null); // Estado para o token
 
+  function isTokenExpired(token) {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.exp === undefined) {
+        return false;
+      }
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decoded.exp < currentTime;
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+      return true; 
+    }
+  }
 
   useEffect(() => {
-    Users(token )
+    const controller = new AbortController();
 
+    const fetchData = async () => {
+      try {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken || isTokenExpired(storedToken)) {
+          console.log('Token inválido ou expirado!');
+          setToken(null); 
+          navigate('/login')
+          return
+        } 
+        setToken(storedToken); 
+        const data = await Me(storedToken, { signal: controller.signal });
+        setUserData(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Erro ao buscar dados:', error);
+          if (localStorage.getItem('token')) {
+            console.log('removendo token')
+            localStorage.removeItem('token');
+            setToken(null);
+          }
+        }
+      }
+    };
 
+    fetchData()
+
+    return () => controller.abort();
+  }, [token]); 
+
+  useEffect(() => {
 
     const removeErrorInput = (event) => {
       event.target.classList.remove('error');
@@ -365,7 +523,6 @@ function ComponentPassword() {
 
   }, [])
 
-  const navigate = useNavigate()
   let hasErrorPassword = false
 
   const inputPassword = useRef()
@@ -421,7 +578,7 @@ function ComponentPassword() {
 
     if (!hasErrorPassword) {
       try {
-        const userPassword = await api.post(`/verify-password/${userLogado.id}`, {
+        const userPassword = await api.post(`/verify-password/${userData.id}`, {
           password: inputPassword.current.value
         },{
           headers: {Authorization : `Bearer ${token}`}
@@ -442,7 +599,7 @@ function ComponentPassword() {
 
     if (!hasErrorPassword) {
       try {
-        await api.put(`/edit-password-user/${userLogado.id}`, {
+        await api.put(`/edit-password-user/${userData.id}`, {
           newPassword: inputNewPassword.current.value
         }, {
           headers: {Authorization : `Bearer ${token}`}
@@ -488,22 +645,63 @@ function ComponentPassword() {
   </div>;
 }
 
+//EXCLUIR CONTA
 function ComponentDeleteAccount() {
   const erroIcon = ErroImg
-  const token = localStorage.getItem('token')
-  let [userLogado, setUserLogado] = useState()
-  let [usersInfo, setUserInfo] = useState() 
+  
+  const navigate = useNavigate()
+  let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
+  const [token, setToken] = useState(null); // Estado para o token
 
+  function isTokenExpired(token) {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.exp === undefined) {
+        return false;
+      }
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decoded.exp < currentTime;
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+      return true; 
+    }
+  }
 
   useEffect(() => {
-    Users(token )
-  }, [])
+    const controller = new AbortController();
 
-  const navigate = useNavigate()
+    const fetchData = async () => {
+      try {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken || isTokenExpired(storedToken)) {
+          console.log('Token inválido ou expirado!');
+          setToken(null); 
+          navigate('/login')
+          return
+        } 
+        setToken(storedToken); 
+        const data = await Me(storedToken, { signal: controller.signal });
+        setUserData(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Erro ao buscar dados:', error);
+          if (localStorage.getItem('token')) {
+            console.log('removendo token')
+            localStorage.removeItem('token');
+            setToken(null);
+          }
+        }
+      }
+    };
+
+    fetchData()
+
+    return () => controller.abort();
+  }, [token]); 
 
   async function deleteAccount() {
     try {
-      await api.delete(`/edit-delete-user/${userLogado.id}`, {
+      await api.delete(`/edit-delete-user/${userData.id}`, {
         headers: {Authorization : `Bearer ${token}`}
       })
     } catch (err) {

@@ -4,54 +4,63 @@ import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
 import { Me } from '../../../service/me.js'
 import { Users }from '../../../service/users.js'
 import './administrador.css'
-import { replace, useNavigate } from 'react-router-dom'
 import UserIcon from '../../assets/default-avatar-user.jpg'
-
+import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 function administrador() {
-  const userIcon = UserIcon
   const navigate = useNavigate()
-
+  const userIcon = UserIcon
   let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
-  let [usersData, setUsersData] = useState([]) //informações dos usuarios que estão no site
-  
+  let [usersData, setUsersData] = useState([])//informações do usuario logado para o user info
   const [token, setToken] = useState(null); // Estado para o token
-  
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    setToken(storedToken); // Atualiza o estado do token
-  }, []);
+
+    function isTokenExpired(token) {
+      try {
+        const decoded = jwtDecode(token);
+        if (decoded.exp === undefined) {
+          return false;
+        }
+        const currentTime = Math.floor(Date.now() / 1000);
+        return decoded.exp < currentTime;
+      } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+        return true; 
+      }
+    }
 
   useEffect(() => {
-
-    if (!token) {
-
-      console.log('sem token na pagina administrador')
-      return
-    } 
-
-    // if (!userData?.isAdmin) {
-    //   navigate('/menu', replace)
-    //   console.log('sem permissão')
-    //   return
-    // }
+    const controller = new AbortController(); // Para cancelar requisições pendentes
 
     const fetchData = async () => {
       try {
-        const data = await Me(token);
-        const dataUsers = await Users(token)
-        setUserData(data)
-        setUsersData(dataUsers)
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+          setToken(null); // Atualiza estado do token
+          navigate('/login')
+          return
+        } 
+        setToken(storedToken || isTokenExpired(storedToken)); // Atualiza estado do token
+        const dataUser = await Me(storedToken, { signal: controller.signal });
+        const dataUsers = await Users(storedToken, { signal: controller.signal });
+        setUserData(dataUser);
+        setUsersData(dataUsers);
       } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        localStorage.removeItem('token'); // Token inválido, remove
-        setToken(null); // Atualiza estado do token
+        if (error.name !== 'AbortError') {
+          console.error('Erro ao buscar dados:', error);
+          if (localStorage.getItem('token')) {
+            localStorage.removeItem('token');
+            setToken(null);
+          }
+        }
       }
     };
 
     fetchData()
-  }, [token])
-  
+
+    return () => controller.abort(); // Cancela a requisição se o componente for desmontado
+  }, [token]); // Ainda dependemos do token para recarregar quando houver mudanças
+
   const ativarConta = async (userId) => {
     try{
       await api.put(`/admin/active-account/${userId}`,{} ,{
@@ -111,16 +120,10 @@ function administrador() {
       } 
   }
 
-  console.log(userData)
-  console.log(usersData)
-  if (!userData) {
-    return <div className='headerPrivate'><p>Carregando...</p></div>
-  } else{
-
   return (
     
     <div >
-      <HeaderPrivate text='Usuarios' user={{name: userData?.name}} ></HeaderPrivate>
+      <HeaderPrivate text='Usuarios' user={{name: userData?.name, isAdmin: userData?.isAdmin}} ></HeaderPrivate>
       <div className='box-listar'>
         {usersData.map((usersData, key = usersData.id) => (
           <div key={key}>
@@ -152,7 +155,6 @@ function administrador() {
       </div>
     </div>
   )
-}
 }
 
 export default administrador

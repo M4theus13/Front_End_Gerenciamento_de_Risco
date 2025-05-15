@@ -5,33 +5,43 @@ import { ComponentUpdateAvatar, ComponentName, ComponentEmail, ComponentPassword
 import './config.css'
 import { useNavigate } from 'react-router-dom'
 import { Me } from '../../../service/me'
+
 function config() {
-
-  const token = localStorage.getItem('token')
-  let [userData, setUserData] = useState([])
-
   const navigate = useNavigate()
+  let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
+  const [token, setToken] = useState(null); // Estado para o token
+
   useEffect(() => {
-    if (!token) {
-      console.log('sem token')
-      navigate('/login')
-      return
-    } 
+    const controller = new AbortController(); // Para cancelar requisições pendentes
 
     const fetchData = async () => {
       try {
-        const data = await Me(token);
-        if (data === undefined) {
-          localStorage.removeItem('token')
-        }
-        setUserData(data)
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+          setToken(null); // Atualiza estado do token
+          navigate('/login')
+          return
+        } 
+        setToken(storedToken); // Atualiza estado do token
+        const data = await Me(storedToken, { signal: controller.signal });
+        setUserData(data);
       } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+        if (error.name !== 'AbortError') {
+          console.error('Erro ao buscar dados:', error);
+          if (localStorage.getItem('token')) {
+            console.log('removendo token')
+            localStorage.removeItem('token');
+            setToken(null);
+          }
+        }
       }
     };
-  
+
     fetchData()
-  }, [])
+
+    return () => controller.abort(); // Cancela a requisição se o componente for desmontado
+  }, [token]); // Ainda dependemos do token para recarregar quando houver mudanças
+
 
   const [currentComponent, setCurrentComponent] = useState('ComponentUpdateAvatar');
 
@@ -59,7 +69,7 @@ function config() {
 
   return (
     <div>
-      <HeaderPrivate text='Configuração' user={{name: userData?.name, avatarURL:userData?.avatarURL}} ></HeaderPrivate>
+      <HeaderPrivate text='Configuração' user={{name: userData?.name, isAdmin: userData?.isAdmin}} ></HeaderPrivate>
       {/* alterar senha, email, deletar conta,*/}
       <div className='container-config'>
         <div className='container-options-config'>
