@@ -72,13 +72,15 @@ function config() {
       <HeaderPrivate text='Configuração' user={{name: userData?.name, isAdmin: userData?.isAdmin}} ></HeaderPrivate>
       {/* alterar senha, email, deletar conta,*/}
       <div className='container-config'>
-        <div className='container-options-config'>
-          <MenuConfigs setComponent={setCurrentComponent}></MenuConfigs>
+        <div className='container-config-child'>
+          <div className='container-options-config'>
+            <MenuConfigs setComponent={setCurrentComponent}></MenuConfigs>
+          </div>
+          
+          <div className='container-content-config'>
+            <RenderComponent></RenderComponent>
+          </div> 
         </div>
-        
-        <div className='container-content-config'>
-          <RenderComponent></RenderComponent>
-        </div> 
 
       </div>
       

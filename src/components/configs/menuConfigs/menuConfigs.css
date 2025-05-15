@@ -1,16 +1,27 @@
+.container-menu-config {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--color-main-400);
+  border-radius: 10px;
+}
+
+.container-menu-config div {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .button-menu-config {
   width: 100%;
-  height: 30px;
-  background: #666666b4;
+  height: 100%;
+  background: var(--color-main-400);
   border: none;
   border-bottom: 1px solid #fff;
   color: #fff;
   outline-color: none;
   transition: .4s;
   font-size: 15px;
-}
-
-.button-menu-config:hover {
-  transform: scale(1.01);
-  background: #474747d2;
 }

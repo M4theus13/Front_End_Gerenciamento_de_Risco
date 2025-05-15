@@ -1,11 +1,13 @@
 .headerPrivate {
-  background: linear-gradient( 45deg, var(--dark-green), var(--medium-green));
+  /* background: linear-gradient( 45deg, var(--dark-green), var(--medium-green)); */
+  background-color: var(--color-main-200);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  color: var(--text-color-white);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 60px;
   width: 100%;
-  color: #fff;
   font-family: "Parkinsans", sans-serif;
 }
 

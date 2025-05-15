@@ -1,12 +1,13 @@
 .headerPublic {
-  background: #2E7D32;
+  /* background: #2E7D32; */
+  background-color: var(--color-main-200);
+  color: var(--text-color-200);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 60px;
   width: 100%;
-  color: #fff;
   font-family: "Parkinsans", sans-serif;
   font-weight: 700;
   font-size: 27px;

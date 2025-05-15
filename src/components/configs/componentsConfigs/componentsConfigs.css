@@ -28,7 +28,6 @@
 } 
 
 .componentAvatarBoxFotoAtualImage, .componentAvatarBoxfotoNovaImage {
-  border: 1px solid #000000;
   width: 160px;
   height: 160px;
   border-radius: 100%;
@@ -53,10 +52,12 @@
   flex-direction: column;
 }
 
-.componentAvatar button {
+/* BUTTONS COMPONENT CONFIG */
+
+.componentAvatar button, .componentName button, .componentEmail button, .componentPassword button {
   height: 30px;
   width: 50%;
-  background: var(--light-green);
+  background: var(--color-main-400);
   border: none;
   outline: none;
   border: 1px solid #fff;
@@ -135,20 +136,6 @@
   color: #fff;
 }
 
-.componentName button {
-  height: 30px;
-  width: 50%;
-  background: var(--light-green);
-  border: none;
-  outline: none;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  margin-top: 10px;
-  color: #fff;
-  font-weight: 500;
-  font-size: 18px;
-}
-
 .componentName-current-name {
   width: 100%;  
   display: flex;
@@ -203,20 +190,6 @@
 
 .componentEmail input::placeholder {
   color: #000;
-}
-
-.componentEmail button {
-  height: 30px;
-  width: 50%;
-  background: var(--light-green);
-  border: none;
-  outline: none;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  margin-top: 10px;
-  color: #fff;
-  font-weight: 500;
-  font-size: 18px;
 }
 
 .componentEmail-legend-box {
@@ -301,20 +274,6 @@
   font-weight: 500;
 }
 
-.componentPassword button {
-  height: 30px;
-  width: 50%;
-  background: var(--light-green);
-  border: none;
-  outline: none;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  margin-top: 10px;
-  color: #fff;
-  font-weight: 500;
-  font-size: 18px;
-}
-
 /* Componente Exluir Conta */
 
 .componentDeleteAccount {
@@ -339,12 +298,11 @@
 }
 
 .componentDeleteAccount button {
+  background: red;
+  border: 2px solid #a30202 ;
   height: 30px;
   width: 50%;
-  background: red;
-  border: none;
   outline: none;
-  border: 1px solid #fff;
   border-radius: 10px;
   margin-top: 20px;
   color: #fff;

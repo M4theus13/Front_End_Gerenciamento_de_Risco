@@ -13,7 +13,15 @@ function administrador() {
   const userIcon = UserIcon
   let [userData, setUserData] = useState(null)//informações do usuario logado para o user info
   let [usersData, setUsersData] = useState([])//informações do usuario logado para o user info
+
+  const [update, setUpdate] = useState(false) // Estado para forçar atualização
+
   const [token, setToken] = useState(null); // Estado para o token
+
+  const handleDataReload = () => {
+    setUpdate(prev => !prev);
+    fetchData();
+  };
 
     function isTokenExpired(token) {
       try {
@@ -29,8 +37,8 @@ function administrador() {
       }
     }
 
-  useEffect(() => {
     const controller = new AbortController(); // Para cancelar requisições pendentes
+
 
     const fetchData = async () => {
       try {
@@ -56,18 +64,17 @@ function administrador() {
       }
     };
 
+  useEffect(() => {
     fetchData()
-
     return () => controller.abort(); // Cancela a requisição se o componente for desmontado
-  }, [token]); // Ainda dependemos do token para recarregar quando houver mudanças
+  }, [token, update]); // Ainda dependemos do token para recarregar quando houver mudanças
 
   const ativarConta = async (userId) => {
     try{
       await api.put(`/admin/active-account/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
-        
       })
-
+      handleDataReload()
     } catch (err) {
       console.log(err.message)
     }
@@ -77,9 +84,8 @@ function administrador() {
     try{
       await api.put(`/admin/desactive-account/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
-        
       })
-
+      handleDataReload()
     } catch (err) {
       console.log(err.message)
     }
@@ -91,8 +97,7 @@ function administrador() {
         headers: {Authorization : `Bearer ${token}`}
         
       })
-      console.log('aqui')
-
+      handleDataReload()
     } catch (err) {
       console.log(err.message)
     }
@@ -103,7 +108,7 @@ function administrador() {
       await api.put(`/admin/rem-admin/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-
+      handleDataReload()
     } catch (err) {
       console.log(err.message)
     }
@@ -123,14 +128,14 @@ function administrador() {
   return (
     
     <div >
-      <HeaderPrivate text='Usuarios' user={{name: userData?.name, isAdmin: userData?.isAdmin}} ></HeaderPrivate>
+      <HeaderPrivate text='Administrador' user={{name: userData?.name, isAdmin: userData?.isAdmin}} ></HeaderPrivate>
       <div className='box-listar'>
         {usersData.map((usersData, key = usersData.id) => (
           <div key={key}>
             <div className='user-box'>
               <div className='user-box-infos'>
                 <div className='user-box-name'>
-                  <img src={userIcon} alt="userIcon" className='userIcon'/>
+                  <img src={userIcon} alt="userIcon" className='usersIcon'/>
                   <p>{usersData.name}</p>
                 </div>
                 <p>{usersData.isAdmin ? 'Administrador' : ''}</p>
@@ -145,13 +150,13 @@ function administrador() {
                 {usersData.accountActive ?
                 <button className='buttonDesactiveAccount' onClick={() => desativarConta(usersData.id)}>Desativar Conta</button> 
                 : ''}
-                {!usersData.accountActive ? <button className='buttonActiveAccount' onClick={() => ativarConta(usersInfo.id)}>Ativar Conta</button> : ''}
+                {!usersData.accountActive ? <button className='buttonActiveAccount' onClick={() => ativarConta(usersData.id)}>Ativar Conta</button> : ''}
                 {userData.isAdmin ? <button className='buttonDeleteUser' onClick={() => excluirUser(usersData.id)}>Deletar Usuário</button> : ''}
               </div>
             </div>
           </div>
         ))}
-        <p></p>
+        deletemy
       </div>
     </div>
   )

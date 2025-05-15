@@ -78,9 +78,9 @@ function perfil() {
               <img src={editImageIcon} alt="userIcon" className='editImageIcon'/>
             </div>
             </div>
-            <div>
-              <p>Nome: {userData?.name}</p>
-              <p>Email: {userData?.email}</p>
+            <div className='perfil-container-info'>
+              <p>{userData?.name}</p>
+              <p>{userData?.email}</p>
             </div>
           </div>
         </div>

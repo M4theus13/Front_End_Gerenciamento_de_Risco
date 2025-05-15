@@ -6,6 +6,11 @@
   color: #fff;
 }
 
+.container-config-child{
+  border: 2px solid var(--color-main-300);
+  display: flex;
+}
+
 .container-options-config {
   display: flex;
   justify-content: flex-start;
@@ -13,9 +18,9 @@
   flex-direction: column;
   flex-wrap: wrap;
   width: 150px;
-  background: var(--dark-green-200);
+  background: var(--color-main-300);
   height: 500px;
-  border-right: 2px solid #fff;
+  
 }
 
 .container-content-config {
@@ -24,7 +29,7 @@
   align-items: center;
   justify-content: center;
   width: 500px;
-  background: var(--light-green-100);
+  background: var(--color-main-200);
   height: 500px;
 }
 

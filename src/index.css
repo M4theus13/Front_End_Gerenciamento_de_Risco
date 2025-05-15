@@ -21,9 +21,32 @@
 
   --bg-200:#2d2d2d;
   --bg-300:#454545;
+
+  /* Paleta de cor TEMA CLARO */
+  
+  /* TEXT */
+  --text-color-100: #3b3c3d;
+  --text-color-200: #1d1c1c;
+  --text-color-white: #fff;
+  --text-color-black: #000;
+  /* BG MAIN */
+
+  --bg-main-color: #ecf4fa;
+  
+  /* COLORS MAIN */
+  --color-main-100: #d4eaf7;
+  --color-main-200: #71c4ef;
+  --color-main-300: #00668c;
+  --color-main-400: #004158;
+
 }
 
 body {
+  background: var(--bg-main-color);
+  overflow: hidden;
+}
+
+/* body {
   background-color:hsla(310,0%,0%,1);
   background-image:
   radial-gradient(at 58% 92%, hsla(0,0%,13%,0.71) 0px, transparent 50%),
@@ -35,4 +58,4 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-}
+} */

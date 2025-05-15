@@ -1,10 +1,10 @@
 .container-perfil {
+  background: var(--body-bg-color);;
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100vh - 60px);
   color: #fff;
-  background: var(--light-green-100);
 }
 
 .perfil {
@@ -14,22 +14,21 @@
   justify-content: space-evenly;
   width: 500px;
   height: 500px;
-  background: green;
-  border: 2px solid #fff;
+  background: var(--color-main-200);
+  border: 2px solid var(--color-main-300);
 }
 .perfil-info {
-  border: 1px solid #fff;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   margin-top: 20px;
   width: 500px;
   height: 500px;
+  gap: 20px;
 }
 
 .boxUserIconPerfil {
-  border: 1px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,3 +63,8 @@
   background: rgba(138, 138, 138, 0.288);
 }
 
+.perfil-container-info {
+  font-weight: 500;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  font-size: 20px;
+}
