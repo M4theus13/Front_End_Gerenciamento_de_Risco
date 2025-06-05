@@ -22,28 +22,45 @@
   --bg-200:#2d2d2d;
   --bg-300:#454545;
 
-  /* Paleta de cor TEMA CLARO */
+  /* Paleta de cor TEMA LIGHT 
+  --bg-main-color: #ecf4fa;
+  */
   
   /* TEXT */
   --text-color-100: #3b3c3d;
   --text-color-200: #1d1c1c;
   --text-color-white: #fff;
   --text-color-black: #000;
-  /* BG MAIN */
-
-  --bg-main-color: #ecf4fa;
   
   /* COLORS MAIN */
+  
+  /* Paleta de cor azul
+  */
   --color-main-100: #d4eaf7;
   --color-main-200: #71c4ef;
   --color-main-300: #00668c;
   --color-main-400: #004158;
+  
+  /* Paleta de cor vermelha
+  --color-main-100: #ffd299;
+  --color-main-200: #FF7F50;
+  --color-main-300: #dd6236;
+  --color-main-400: #8f1e00;
+  */
 
+  /* Paleta de cor TEMA DARK 
+  */
+  --bg-main-color: #181818;
 }
 
 body {
   background: var(--bg-main-color);
-  overflow: hidden;
+  overflow-x: hidden;
+  color: var(--text-color-white);
+}
+
+.displaynone {
+  display: none;
 }
 
 /* body {

@@ -64,9 +64,12 @@ function paginaInicial() {
       {
          !token ? <Header text='Pagina Principal' cadastro='ativado' login='ativado'></Header> : <HeaderPrivate text='Página inicial' user={{name: userData?.name, isAdmin: userData?.isAdmin}}></HeaderPrivate> 
       }
-      <button>
-        <Link to='/menu'>Menu</Link>
-      </button>
+      <div className='container-pagina-inicial'>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error voluptates at sint dolorem et atque optio expedita magni doloribus unde minus amet veniam, enim in ea illum? Non, nemo voluptas.</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error voluptates at sint dolorem et atque optio expedita magni doloribus unde minus amet veniam, enim in ea illum? Non, nemo voluptas.</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error voluptates at sint dolorem et atque optio expedita magni doloribus unde minus amet veniam, enim in ea illum? Non, nemo voluptas.</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error voluptates at sint dolorem et atque optio expedita magni doloribus unde minus amet veniam, enim in ea illum? Non, nemo voluptas.</p>
+      </div>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import './sideMenu.css'
 import Logout from '../logout/logout';
+import '../../../src/index.css'
 
 function sideMenu({menuClass, isAdmin}) {
   const [menu,setMenu] = useState(false) //menu começa como false
@@ -13,22 +14,13 @@ function sideMenu({menuClass, isAdmin}) {
   } 
 
   const logoutElement = useRef()
-  const buttonLogout = useRef()
 
   const logout = () => {
     const logout = logoutElement.current
 
-    const button = buttonLogout.current
     console.log(logout)
     logout.classList.toggle('hidden')
     console.log('logout')
-  }
-
-  const logoutBoxRef = useRef()
-
-  const closeLogout = () => {
-    const logoutBox = logoutBoxRef.current
-    logoutBox.classList.toggle('hidden')
   }
 
   return (
@@ -38,9 +30,8 @@ function sideMenu({menuClass, isAdmin}) {
         <IoClose className={`icon-button ${!menu ? 'hidden' : ''}`}/>
       </button>
       <div className={`menuHeader ${menu ? 'open' : 'close'}`}>
-        <button className='buttonMenuSide'>
-          {isAdmin ? <Link to='/admin/usuarios'>Administrador</Link> : ''}
-        </button>
+        {isAdmin ? <button className='buttonMenuSide'><Link to='/admin/usuarios'>Administrador</Link></button>  : <div className='displaynone'></div>}
+        {isAdmin ? <button className='buttonMenuSide'><Link to='/admin/criar-usuario'>Criar Usuário</Link></button> : <div className='displaynone'></div>}
         <button className='buttonMenuSide'><Link to={'/'}>Página Inicial</Link></button>
         <button className='buttonMenuSide'><Link to='/menu'>Menu</Link></button>
         <button className='buttonMenuSide'><Link to='/menu/perfil'>Perfil</Link></button>

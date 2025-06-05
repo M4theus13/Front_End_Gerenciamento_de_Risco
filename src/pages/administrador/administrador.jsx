@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import api from '../../../service/api'
 import HeaderPrivate from '../../components/headerPrivate/headerPrivate'
 import { Me } from '../../../service/me.js'
@@ -7,6 +7,8 @@ import './administrador.css'
 import UserIcon from '../../assets/default-avatar-user.jpg'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+import iconErro from '../../assets/erro-icon.png'
+import DeleteUsers from '../../components/deleteUsers/deleteUsers.jsx'
 
 function administrador() {
   const navigate = useNavigate()
@@ -119,18 +121,36 @@ function administrador() {
       await api.put(`/admin/delete-user/${userId}`,{} ,{
         headers: {Authorization : `Bearer ${token}`}
       })
-
+      handleDataReload()
       } catch (err) {
         console.log(err)
       } 
   }
+
+  
+    const excluirUsers = useRef()
+  
+    const confirmExcluirUser = (userId) => {
+      const logout = excluirUsers.current
+  
+      console.log(logout)
+      logout.classList.toggle('hidden')
+      console.log('logout')
+    }
+  
 
   return (
     
     <div >
       <HeaderPrivate text='Administrador' user={{name: userData?.name, isAdmin: userData?.isAdmin}} ></HeaderPrivate>
       <div className='box-listar'>
-        {usersData.map((usersData, key = usersData.id) => (
+        {
+        usersData.length === 0 ?
+        <div className='box-erro-administrador'>
+          <img src={iconErro} alt="iconErro" className='icon-erro'/>
+          <p className='text-erro'>Nenhum usuário cadastrado !</p> 
+        </div> :
+        usersData.map((usersData, key = usersData.id) => (
           <div key={key}>
             <div className='user-box'>
               <div className='user-box-infos'>
@@ -151,12 +171,15 @@ function administrador() {
                 <button className='buttonDesactiveAccount' onClick={() => desativarConta(usersData.id)}>Desativar Conta</button> 
                 : ''}
                 {!usersData.accountActive ? <button className='buttonActiveAccount' onClick={() => ativarConta(usersData.id)}>Ativar Conta</button> : ''}
-                {userData.isAdmin ? <button className='buttonDeleteUser' onClick={() => excluirUser(usersData.id)}>Deletar Usuário</button> : ''}
+                {userData.isAdmin ? <button className='buttonDeleteUser' onClick={() => confirmExcluirUser(usersData.id)}>Deletar Usuário</button> : ''}
               </div>
             </div>
           </div>
-        ))}
-        deletemy
+        ))
+        
+        }
+        {/* continuar aqui */}
+        <DeleteUsers ref={excluirUsers}  onClick={confirmExcluirUser}></DeleteUsers>
       </div>
     </div>
   )

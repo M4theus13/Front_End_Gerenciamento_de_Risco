@@ -1,11 +1,11 @@
 .box-listar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
-  gap: 10px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
   color: #fff;
+  place-items: center;
 }
 
 .user-box {
@@ -207,4 +207,19 @@
   background: rgba(255, 255, 255, 0.1);
   transform: rotate(45deg);
   transition: all 0.5s ease;
+}
+
+
+.box-erro-administrador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 24px;
+}
+
+.icon-erro {
+  width: 100px;
+  height: 100px;
 }

@@ -8,6 +8,7 @@ import Menu from './pages/menu/menu'
 import Perfil from './pages/perfil/perfil'
 import Config from './pages/configuracao/config'
 import ContaDesativada from './pages/contaDesativadaMessagem/contaDesativada'
+import CriarUsuario from './pages/criarUsuario/criarUsuario'
 import Erro from './pages/erro/erro'
 import './App.css'
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/conta-desativada' element={<ContaDesativada></ContaDesativada>}></Route>
           <Route path='/admin/usuarios' element={<Administrador></Administrador>}></Route>
           <Route path='/admin/administrador' element={<AdminCadastrar></AdminCadastrar>}></Route>
+          <Route path='/admin/criar-usuario' element={<CriarUsuario></CriarUsuario>}></Route>
           <Route path='/*' element={<Erro></Erro>}></Route>
         </Routes>
       </BrowserRouter>

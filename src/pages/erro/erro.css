@@ -1,6 +1,6 @@
 .box-erro {
   height: calc(100vh - 60px);
-  background: rgb(183, 250, 183);
+  background: var(--bg-main-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,21 +24,21 @@
 .erro-text {
   font-weight: 700;
   font-size: 90px;
-  color: green;
+  color: var(--text-color-white);
   text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
 .erro-description {
   font-weight: 400;
   font-size: 25px;
-  color: green;
+  color: var(--text-color-white);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 
 }
 
 .button-erro {
   padding: 10px 20px;
-  background: green;
+  background: var(--color-main-300);
   color: white;
   border: none;
   border-radius: 5px;
@@ -52,5 +52,5 @@
 
 .button-erro:hover {
   transform: scale(1.03);
-  background: rgb(0, 128, 0);
+  background: var(--color-main-400);
 }

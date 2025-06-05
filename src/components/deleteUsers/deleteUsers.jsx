@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react'
-import './logout.css'
+import './deleteUsers.css'
 import { useNavigate } from 'react-router-dom'
 
-const logout = forwardRef((props, refs) => {
+const deleteUsers = forwardRef((props, refs) => {
   const navigate = useNavigate()
 
   const logout = () => {
@@ -33,4 +33,4 @@ const logout = forwardRef((props, refs) => {
   )
 })
 
-export default logout
+export default deleteUsers
