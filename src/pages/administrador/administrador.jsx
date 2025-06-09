@@ -116,28 +116,38 @@ function administrador() {
     }
   }
 
-  const excluirUser = async (userId) => {
-    try{
-      await api.put(`/admin/delete-user/${userId}`,{} ,{
-        headers: {Authorization : `Bearer ${token}`}
-      })
-      handleDataReload()
-      } catch (err) {
-        console.log(err)
-      } 
-  }
 
-  
-    const excluirUsers = useRef()
-  
-    const confirmExcluirUser = (userId) => {
-      const logout = excluirUsers.current
-  
-      console.log(logout)
-      logout.classList.toggle('hidden')
-      console.log('logout')
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const deleteDialogRef = useRef();
+
+  // Mostra o modal e guarda o ID do usuário
+  const confirmExcluirUser = (userId) => {
+    setSelectedUserId(userId);
+    deleteDialogRef.current.classList.toggle('hidden')
+
+  };
+
+
+  // Função que executa a exclusão via API
+  const excluirUser = async () => {
+    if (!selectedUserId) return;
+    
+    try {
+      await api.put(`/admin/delete-user/${selectedUserId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      handleDataReload();
+      fecharModal();
+    } catch (err) {
+      console.log(err);
     }
-  
+  };
+
+  const fecharModal = () => {
+    deleteDialogRef.current.classList.add('hidden');
+  };
+
+
 
   return (
     
@@ -171,7 +181,7 @@ function administrador() {
                 <button className='buttonDesactiveAccount' onClick={() => desativarConta(usersData.id)}>Desativar Conta</button> 
                 : ''}
                 {!usersData.accountActive ? <button className='buttonActiveAccount' onClick={() => ativarConta(usersData.id)}>Ativar Conta</button> : ''}
-                {userData.isAdmin ? <button className='buttonDeleteUser' onClick={() => confirmExcluirUser(usersData.id)}>Deletar Usuário</button> : ''}
+                {userData.isAdmin ? <button className='buttonDeleteUser' useRef={deleteDialogRef} onClick={() => confirmExcluirUser(usersData.id)}>Deletar Usuário</button> : ''}
               </div>
             </div>
           </div>
@@ -179,7 +189,7 @@ function administrador() {
         
         }
         {/* continuar aqui */}
-        <DeleteUsers ref={excluirUsers}  onClick={confirmExcluirUser}></DeleteUsers>
+        <DeleteUsers ref={deleteDialogRef} onConfirm={excluirUser} onCancel={fecharModal} classList='hidden'></DeleteUsers>
       </div>
     </div>
   )

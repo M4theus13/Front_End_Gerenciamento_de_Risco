@@ -1,4 +1,4 @@
-.logout {
+.deleteUsers {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
   transition: all 0.3s ease;
 }
 
-.logout-text {
+.deleteUsers-text {
   background: var(--color-main-200);
   padding: 2rem;
   border-radius: 15px;
@@ -24,14 +24,14 @@
   position: relative;
 }
 
-.logout-text div {
+.deleteUsers-text div {
   display: flex;
   gap: 1rem;
   margin-top: 1.5rem;
   justify-content: center;
 }
 
-.logout-text button {
+.deleteUsers-text button {
   padding: 12px 30px;
   border: none;
   border-radius: 25px;
@@ -43,33 +43,33 @@
 
 
 /* Botão "Sim" */
-.buttonOptionLogout:first-child {
+.buttonOptionDeleteUsers:first-child {
   background: #e72813;
   color: white;
   border: 2px solid #a30202 ;
   box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
 }
 
-.buttonOptionLogout:hover {
+.buttonOptionDeleteUsers:hover {
   background: #cf1601;
   transform: translateY(-2px);
 }
 
 /* Botão "Não" */
-.logout-text button:last-child {
+.deleteUsers-text button:last-child {
   background: #2ecc71;
   color: #fff;
   border: 2px solid #27ae60;
 }
 
-.logout-text button:last-child:hover {
+.deleteUsers-text button:last-child:hover {
   background: #27ae60;
   color: white;
   transform: translateY(-2px);
 }
 
 /* Texto da mensagem */
-.logout-text p {
+.deleteUsers-text p {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
   line-height: 1.5;
@@ -77,7 +77,7 @@
 }
 
 /* Estado hidden */
-.logout.hidden {
+.deleteUsers.hidden {
   opacity: 0;
   visibility: hidden;
 }

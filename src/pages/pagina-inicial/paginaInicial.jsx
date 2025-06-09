@@ -19,6 +19,8 @@ function paginaInicial() {
       if (decoded.exp === undefined) {
         return false;
       }
+      console.log(decoded)
+
       const currentTime = Math.floor(Date.now() / 1000);
       return decoded.exp < currentTime;
     } catch (error) {

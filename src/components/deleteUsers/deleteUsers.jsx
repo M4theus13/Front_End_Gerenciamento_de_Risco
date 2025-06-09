@@ -1,32 +1,27 @@
 import React, { forwardRef } from 'react'
 import './deleteUsers.css'
 import { useNavigate } from 'react-router-dom'
+import api from '../../../service/api'
 
-const deleteUsers = forwardRef((props, refs) => {
-  const navigate = useNavigate()
+const deleteUsers = forwardRef(( { onConfirm, onCancel }, refs) => {
 
-  const logout = () => {
-    navigate('/', {replace: true})
-    localStorage.removeItem('token')
-  }
+  const handleContainerClick = (e) => {
+    if (e.target === e.currentTarget) onCancel();
+  };
 
-  const noLogout = () => {
-    document.querySelector('.logout').classList.add('hidden')
-  }
-
-  const handleLogoutTextClick = (event) => {
+  const handleDeleteUsersTextClick = (event) => {
     event.stopPropagation() // Impede a propagação do evento de clique para o elemento pai
   }
 
   return (
-    <div className='logout hidden' onClick={noLogout} ref={refs}>
-      <div className='logout-text' onClick={handleLogoutTextClick}>
+    <div className='deleteUsers hidden' onClick={handleContainerClick} ref={refs}>
+      <div className='deleteUsers-text' onClick={handleDeleteUsersTextClick}>
         <p>
-          Deseja sair? Será nescessario fazer o login novamente
+          Deseja excluir esta conta? não será possível reverter esta ação!
         </p>
         <div>
-          <button onClick={logout} className='buttonOptionLogout'>Sim</button>
-          <button onClick={noLogout} className='buttonOptionLogout'>Não</button>
+          <button onClick={onConfirm} className='buttonOptionDeleteUsers'>Sim</button>
+          <button onClick={onCancel} className='buttonOptionDeleteUsers'>Não</button>
         </div>
       </div>
     </div>
