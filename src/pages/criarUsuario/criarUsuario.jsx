@@ -16,6 +16,7 @@ function CriarUsuario() {
   const inputName = useRef()
   const inputEmail = useRef()
   const inputPassword = useRef()
+  const checkboxAdministrador = useRef()
 
   const textName = useRef()
   const textEmail = useRef()
@@ -105,11 +106,13 @@ function CriarUsuario() {
     }
 
     async function sendingData() {
+
       try {
-        await api.post('/usuarios/cadastro', {
+        await api.post('/usuarios/administrador', {
           name: inputName.current.value,
           email: inputEmail.current.value,
-          password: inputPassword.current.value
+          password: inputPassword.current.value,
+          isAdmin: checkboxAdministrador.current.checked
         })
 
         inputName.current.value = ''
@@ -169,15 +172,19 @@ function CriarUsuario() {
   return (
     <div className='box-criar-usuario'>
       <HeaderPrivate text='Criar Usuário' user={{name: userData?.name, isAdmin: userData?.isAdmin}} ></HeaderPrivate>
-      <div className='box-form-cadastrar'>
-        <form className='form-cadastrar'>
-          <span id='text-cadastrar-name' className='text-input-cadastrar' ref={textName}>Nome Vazio</span>
-          <input id='name-cadastrar' className='input-cadastrar' placeholder='Nome' ref={inputName}/>
-          <span id='text-cadastrar-email' className='text-input-cadastrar' ref={textEmail}>Email Vazio</span>
-          <input id='email-cadastrar' className='input-cadastrar' type="text" placeholder='seu@email.com' ref={inputEmail}/>
-          <span id='text-cadastrar-password' className='text-input-cadastrar' ref={textPassword}>Senha Vazia</span>
-          <input id='password-cadastrar' className='input-cadastrar' type="text" placeholder='Senha' ref={inputPassword}/>
-          <button className='button-cadastrar' type="button" onClick={createUser}>Criar</button>
+      <div className='box-form-cadastrar-administrador'>
+        <form className='form-cadastrar-administrador'>
+          <span id='text-cadastrar-administrador-name' className='text-input-cadastrar-administrador' ref={textName}>Nome Vazio</span>
+          <input id='name-cadastrar-administrador' className='input-cadastrar-administrador' placeholder='Nome' ref={inputName}/>
+          <span id='text-cadastrar-administrador-email' className='text-input-cadastrar-administrador' ref={textEmail}>Email Vazio</span>
+          <input id='email-cadastrar-administrador' className='input-cadastrar-administrador' type="text" placeholder='seu@email.com' ref={inputEmail}/>
+          <span id='text-cadastrar-administrador-password' className='text-input-cadastrar-administrador' ref={textPassword}>Senha Vazia</span>
+          <input id='password-cadastrar-administrador' className='input-cadastrar-administrador' type="text" placeholder='Senha' ref={inputPassword}/>
+          <div className='box-check-cadastrar-administrador-admin'>
+            <input id='checkbox-administrador' type="checkbox" ref={checkboxAdministrador}/>
+            <span>Administrador</span>
+          </div>
+          <button className='button-cadastrar-administrador' type="button" onClick={createUser}>Criar</button>
         </form>
       </div>
     </div>

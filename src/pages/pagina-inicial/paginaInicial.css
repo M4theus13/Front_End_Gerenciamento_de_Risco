@@ -1,3 +1,8 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .paginaInicial {
   height: 100vh;
 }
@@ -8,4 +13,25 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+}
+
+.container-button-pagina-inicial {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-pagina-inicial {
+  background-color: var(--color-main-300);
+  color: var(--text-color-white);
+  font-size: 20px;
+  height: 50px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
 }

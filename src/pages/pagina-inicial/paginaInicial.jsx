@@ -38,7 +38,6 @@ function paginaInicial() {
         if (!storedToken || isTokenExpired(storedToken)) {
           console.log('Token inválido ou expirado!');
           setToken(null); 
-          navigate('/login')
           return
         } 
         setToken(storedToken); 
@@ -71,6 +70,9 @@ function paginaInicial() {
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error voluptates at sint dolorem et atque optio expedita magni doloribus unde minus amet veniam, enim in ea illum? Non, nemo voluptas.</p>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error voluptates at sint dolorem et atque optio expedita magni doloribus unde minus amet veniam, enim in ea illum? Non, nemo voluptas.</p>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error voluptates at sint dolorem et atque optio expedita magni doloribus unde minus amet veniam, enim in ea illum? Non, nemo voluptas.</p>
+      </div>
+      <div className='container-button-pagina-inicial'>
+        <button className='button-pagina-inicial'><Link to={'/admin/administrador'}>Criar Conta Administrador</Link></button>
       </div>
     </div>
   )

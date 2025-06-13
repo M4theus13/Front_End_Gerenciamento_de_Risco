@@ -7,3 +7,131 @@
   flex-direction: column;
   background-color: var(--bg-main-color);
 }
+
+.box-form-cadastrar-administrador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 700px;
+  height: 100vh;
+}
+
+.form-cadastrar-administrador {
+  background-color: var(--color-main-100);
+  border: 2px solid var(--color-main-200);
+  width: 600px;
+  height: 400px;
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  position: relative;
+}
+
+#name-cadastrar-administrador, #email-cadastrar-administrador, #password-cadastrar-administrador {
+  width: 100%;
+  max-width: 500px;
+  height: 50px;
+  font-size: 20px;
+  padding-inline: 15px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--color-main-400);
+  outline: none;
+  color: #1f1f1f;
+  margin-bottom: 20px;
+}
+
+#text-cadastrar-administrador-name {
+  position: absolute;
+  top: 20px;
+  left: 50px ;
+}
+
+#text-cadastrar-administrador-email {
+  position: absolute;
+  top: 90px;
+  left: 50px ;
+}
+
+#text-cadastrar-administrador-password {
+  position: absolute;
+  top: 160px;
+  left: 50px;
+}
+
+.input-cadastrar-administrador::placeholder {
+  color: rgb(71, 71, 71);
+  font-weight: 300;
+}
+
+
+.button-cadastrar-administrador {
+  background-color: var(--color-main-300);
+  border: 2px solid var(--color-main-400);
+  color: #fff;
+  font-size: 20px;
+  height: 50px;
+  border-radius: 10px;
+  outline: none;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+}
+
+
+/*Tratamentos*/
+.text-input-cadastrar-administrador {
+  display: none;
+  font-size: 14px;
+  font-weight: 300;
+  cursor: default;
+  width: 500px;
+  text-align: start;
+}
+
+.error-empty-text-cadastrar-administrador {
+  color: red;
+  font-size: 14px;
+  font-weight: 300;
+  cursor: default;
+  width: 500px;
+}
+
+.error-empty-input-cadastrar-administrador {
+  border: none;
+  border-bottom: 1px solid red !important;
+  background: rgb(255, 193, 193);
+}
+
+.error-empty-input-cadastrar-administrador::placeholder {
+  color: red !important;
+}
+
+.errorEmptyInput:focus {
+  outline: none;
+  border: 2px solid red !important;
+}
+
+.box-check-cadastrar-administrador-admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-check-cadastrar-administrador-admin span {
+  color: var(--text-color-black);
+}
+
+#checkbox-administrador {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+
+  border-radius: 10px;
+  padding-inline: 15px;
+  border: 1px solid var(--color-main-400);
+}
