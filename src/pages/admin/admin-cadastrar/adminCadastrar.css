@@ -1,7 +1,7 @@
 .box-administrador {
   height: 100vh;
   width: 100%;
-  background: #E6F7E9;
+  background: var(--bg-main-color);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -14,6 +14,10 @@
   justify-content: center;
   width: 700px;
   height: 100vh;
+}
+
+.box-administrador-titleForm{
+  color: var(--color-main-300);
 }
 
 #name, #email, #password {
@@ -34,12 +38,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border:  2px solid #2E7D32;
+  border:  2px solid var(--color-main-300);
   border-radius: 20px;
-  background-color: #c2dfc8;
+  background-color: var(--color-main-100);
 }
 .button-administrador {
-  background-color: #2E7D32;
+  background-color: var(--color-main-300);
   color: #fff;
   font-size: 20px;
   height: 50px;

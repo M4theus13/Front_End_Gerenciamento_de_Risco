@@ -103,6 +103,7 @@ function adminCadastrar() {
       <Header text='Administrador'></Header>
       <div className='box-form-administrador'>
         <form className='form-administrador'>
+          <h1 className='box-administrador-titleForm'>Cadastrar Administrador</h1>
           <span  className='okText-administrador' ref={textName}>Nome Vazio</span>
           <input id='name' placeholder='Nome' ref={inputName}/>
           <span className='okText-administrador' ref={textEmail}>Email Vazio</span>

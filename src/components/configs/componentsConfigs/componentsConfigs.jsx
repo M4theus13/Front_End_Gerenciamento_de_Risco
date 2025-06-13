@@ -7,6 +7,7 @@ import { Me } from '../../../../service/me';
 import UserIcon from '../../../assets/default-avatar-user.jpg'
 import ErroImg from '../../../assets/erro-icon.png'
 import { jwtDecode } from 'jwt-decode'
+import DeleteMyUser from '../../deleteMyUser/deleteMyUser';
 
 function ComponentUpdateAvatar() {
   const userIcon = UserIcon
@@ -699,8 +700,25 @@ function ComponentDeleteAccount() {
     return () => controller.abort();
   }, [token]); 
 
-  async function deleteAccount() {
+
+
+    
+    const [selectedUserId, setSelectedUserId] = useState(null);
+    const deleteDialogRef = useRef();
+  
+    // Mostra o modal e guarda o ID do usuário
+    const confirmExcluirMyUser = (id) => {
+      setSelectedUserId(id);
+      deleteDialogRef.current.classList.toggle('hidden')
+  
+    };
+  
+
+    
+    async function excluirMyUser() {
+    if (!selectedUserId) return;
     try {
+      console.log('excluindo usuario')
       await api.delete(`/edit-delete-user/${userData.id}`, {
         headers: {Authorization : `Bearer ${token}`}
       })
@@ -712,10 +730,17 @@ function ComponentDeleteAccount() {
   
   }
 
+  const fecharModal = () => {
+    deleteDialogRef.current.classList.add('hidden');
+  };
+
+
   return <div className='componentDeleteAccount'>
     <img src={erroIcon} alt="error-icon" />
     <p>Deseja excluir sua conta?</p>
-    <button onClick={deleteAccount}>Excluir</button>
+    <button useRef={deleteDialogRef} onClick={() => confirmExcluirMyUser(userData.id)}>Excluir</button>
+    <DeleteMyUser ref={deleteDialogRef} onConfirm={excluirMyUser} onCancel={fecharModal} classList='hidden'></DeleteMyUser>
+    
   </div>;
 }
 
